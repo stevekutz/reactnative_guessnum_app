@@ -15,19 +15,15 @@ const StartGameScreen = props => {
     //const [numberMessage, setNumberMessage] = useState('Select a Number');
 
     const handleNumberInput = inputTextVal => {
-
-
         setNumVal(inputTextVal.replace(/[^0-9]/g, ''));        
     }
 
     const resetHandler = () => {
         setNumVal('');
-        setConfirmed(false);
-    
+        setConfirmed(false);    
     }
 
     const confirmHandler = () => {
-
         const chosenVal = parseInt(numVal);
 
         // Verify value is valid number
@@ -54,28 +50,6 @@ const StartGameScreen = props => {
             setConfirmedVal(chosenVal);
             setNumVal('');
             Keyboard.dismiss();
-    
-    }
-
-
-    // defining component here prevents re-render and display of new number different than user's confirmedVal 
-    // user number will change due to re-render if ternary oeprator used inside return to render component
-
-    let confirmedComponent;
-
-    if (confirmed) {
-        confirmedComponent = (
-            <Card style = {styles.summaryContainer}>
-                <NumberContainer> {confirmedVal} </NumberContainer>
-                <Text> chosen </Text>
-                <Button 
-                    title = 'Start Game ?'
-                    onPress = {() => props.startGameHandler(confirmedVal)}
-                />
-                                
-            </Card>
-        
-        )
     }
 
     return (
@@ -83,9 +57,7 @@ const StartGameScreen = props => {
             <View style = {styles.screen}>
                 <Text style = {styles.title} > Start a New Game </Text>
                 <Card style = {styles.inputContainer}>
-
                         <Text> Enter a number </Text> 
-                        {/* <TextInput />  */}
                         <Input 
                             style = {styles.input} 
                             blurOnSubmit 
@@ -113,7 +85,23 @@ const StartGameScreen = props => {
                         </View>
                 </Card>
 
-                {confirmedComponent}
+                <View>
+                { confirmed  
+                    ? 
+                        <Card style = {styles.summaryContainer}>
+                            {/* <NumberContainer>{numberMessage}</NumberContainer> */}
+                            <NumberContainer> {confirmedVal} </NumberContainer>
+                            <Text> chosen </Text>
+                            <Button 
+                                title = 'Start Game ?'
+                                onPress = {() => props.startGameHandler(confirmedVal)}
+                            />
+                        
+                        </Card>
+                    : 
+                        <Text> Ready for numerical input </Text>
+                }
+                </View>
 
             </View>    
         </TouchableWithoutFeedback>
@@ -189,21 +177,3 @@ const styles = StyleSheet.create({
 })
 
 export default StartGameScreen;
-
-    // <View>
-    // { confirmed  
-    //     ? 
-    //         <Card style = {styles.summaryContainer}>
-    //             {/* <NumberContainer>{numberMessage}</NumberContainer> */}
-    //             <NumberContainer> {confirmedVal} </NumberContainer>
-    //             <Text> chosen </Text>
-    //             <Button 
-    //                 title = 'Start Game ?'
-    //                 onPress = {() => props.startGameHandler(confirmedVal)}
-    //             />
-            
-    //         </Card>
-    //     : 
-    //         <Text> Ready for numerical input </Text>
-    // }
-   

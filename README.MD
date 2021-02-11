@@ -670,9 +670,17 @@
     - `numVal` state manages value from `Input` component
     - `confirmedVal` validates user input
     - `confirmed` boolean manages state of current valid input
-    - defining `confirmedComponent` is used instead of conditionally rendering component to prevent a re-render of `GameScreen` from within `App` which causes a new number to be passed into `NumberContainer`
+    - defining `confirmedComponent` is used instead of conditionally rendering component to prevent a re-render of `GameScreen` from within `App` which causes a new number to be passed into `NumberContainer` since `userChoice` prop is passed to GameScreen to generate a random number:
+
+        ~~~ js
+        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+        ~~~
+
+
   
     ~~~ js
+    // StartGameScreen.js
+    ...
     const StartGameScreen = props => {
 
         const [numVal, setNumVal ] = useState('')
@@ -724,26 +732,6 @@
         
         }
 
-    // defining component here prevents re-render and display of new number different than user's confirmedVal 
-    // user number will change due to re-render if ternary oeprator used inside return to render component
-
-    let confirmedComponent;
-
-    if (confirmed) {
-        confirmedComponent = (
-            <Card style = {styles.summaryContainer}>
-                <NumberContainer> {confirmedVal} </NumberContainer>
-                <Text> chosen </Text>
-                <Button 
-                    title = 'Start Game ?'
-                    onPress = {() => props.startGameHandler(confirmedVal)}
-                />
-                                
-            </Card>
-        
-        )        
-
-
         return (
             <TouchableWithoutFeedback onPress = {() => {Keyboard.dismiss()}} >
                 <View style = {styles.screen}>
@@ -779,12 +767,29 @@
                             </View>
                     </Card>
 
-                    {confirmedComponent}
+                    <View>
+                    { confirmed  
+                        ? 
+                            <Card style = {styles.summaryContainer}>
+                                {/* <NumberContainer>{numberMessage}</NumberContainer> */}
+                                <NumberContainer> {confirmedVal} </NumberContainer>
+                                <Text> chosen </Text>
+                                <Button 
+                                    title = 'Start Game ?'
+                                    onPress = {() => props.startGameHandler(confirmedVal)}
+                                />
+                            
+                            </Card>
+                        : 
+                            <Text> Ready for numerical input </Text>
+                    }
+                    </View>
 
                 </View>    
             </TouchableWithoutFeedback>
         );
     };
+    ...
     ~~~
 
 14) Update `App` component
