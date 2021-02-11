@@ -350,6 +350,7 @@
 
 
         ~~~ js
+        // Input.js
         import React from 'react';
         import {TextInput, StyleSheet} from 'react-native';
 
@@ -616,21 +617,45 @@
 
     }
 
-
-
     const GameScreen = props => {
 
         const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
 
         return (
-            <View>
-            
+            <View style = {styles.screen}>
+                <Text> Guess Number {props.userNumber}</Text>
+                {/* <NumberContainer> {currentGuess} </NumberContainer> */} 
+                <Card style = {styles.buttonContainer}>
+                    <Button title = 'Lower' onPress = {() => {}} />
+                    
+                    <Button title = 'Higher' onPress = {() => {}} />
+                
+                </Card>
             </View>    
         )
     }
 
-    const style = StyleSheet.create({
+    const styles = StyleSheet.create({
+        screen: {
+            borderWidth: 2,
+            borderColor: 'darkred',
+            
+            margin: 20,
+            flex: 1,
+            padding: 8,
+            alignItems: 'center',
 
+        
+        },
+        buttonContainer: {
+            
+            margin: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '80%',
+            maxWidth: '85%', 
+        
+        }
 
 
 
@@ -640,7 +665,177 @@
     export default GameScreen;
     ~~~
 
-14) Update App component
+13) Update `StartGameScreen` component
 
-state of game screens is managed here
-`startGameHandler` must be triggered from within `GameScreen` so is passed down as a prop
+    - `numVal` state manages value from `Input` component
+    - `confirmedVal` validates user input
+    - `confirmed` boolean manages state of current valid input
+    - defining `confirmedComponent` is used instead of conditionally rendering component to prevent a re-render of `GameScreen` from within `App` which causes a new number to be passed into `NumberContainer`
+  
+    ~~~ js
+    const StartGameScreen = props => {
+
+        const [numVal, setNumVal ] = useState('')
+        const [confirmed, setConfirmed] = useState(false)
+        const [confirmedVal, setConfirmedVal] = useState('')
+
+        const handleNumberInput = inputTextVal => {
+
+
+            setNumVal(inputTextVal.replace(/[^0-9]/g, ''));        
+        }
+
+        const resetHandler = () => {
+            setNumVal('');
+            setConfirmed(false);
+        
+        }
+
+        const confirmHandler = () => {
+
+            const chosenVal = parseInt(numVal);
+            // console.log("chosenVal is ", chosenVal)
+
+
+            // Verify value is valid number 0
+            
+            if ( Number.isNaN(chosenVal) || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
+            //   the following does not detect NaN
+            // if ( chosenVal === NaN || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
+                // setNumVal('');
+                // console.log("numVal is ", numVal)
+                setConfirmed(false);
+                Alert.alert(
+                    'Invalid input',  // title
+                    'Enter a number from 1-99', // message 
+                    [{
+                        text: 'OK', // button text
+                        style: 'destructive', // choices are: default, cancel, & destructive
+                        onPress: resetHandler // callback 
+                    }]
+                )
+                return;
+            }
+                setNumberMessage(chosenVal.toString());
+                setConfirmed(true);
+                setConfirmedVal(chosenVal);
+                setNumVal('');
+                Keyboard.dismiss();            
+        
+        }
+
+    // defining component here prevents re-render and display of new number different than user's confirmedVal 
+    // user number will change due to re-render if ternary oeprator used inside return to render component
+
+    let confirmedComponent;
+
+    if (confirmed) {
+        confirmedComponent = (
+            <Card style = {styles.summaryContainer}>
+                <NumberContainer> {confirmedVal} </NumberContainer>
+                <Text> chosen </Text>
+                <Button 
+                    title = 'Start Game ?'
+                    onPress = {() => props.startGameHandler(confirmedVal)}
+                />
+                                
+            </Card>
+        
+        )        
+
+
+        return (
+            <TouchableWithoutFeedback onPress = {() => {Keyboard.dismiss()}} >
+                <View style = {styles.screen}>
+                    <Text style = {styles.title} > Start a New Game </Text>
+                    <Card style = {styles.inputContainer}>
+
+                            <Text> Enter a number </Text> 
+                            {/* <TextInput />  */}
+                            <Input 
+                                style = {styles.input} 
+                                blurOnSubmit 
+                                autoCapitalize = 'none'
+                                autoCorrect = {false}  
+                                keyboardType = "number-pad"  
+                                maxLength = {2}
+                                onChangeText = {handleNumberInput}
+                                value = {numVal}
+                            />
+                            <View style = {styles.buttonContainer}>
+                                <View style = {styles.buttonStyle}>
+                                    <Button 
+                                        title = 'Reset' 
+                                        color = {Colors.primary} 
+                                        onPress = {resetHandler} />                        
+                                </View>
+                                <View style = {styles.buttonStyle}>
+                                    <Button 
+                                        title = 'Confirm' 
+                                        color = {Colors.accent} 
+                                        onPress = {confirmHandler} 
+                                    />
+                                </View> 
+                            </View>
+                    </Card>
+
+                    {confirmedComponent}
+
+                </View>    
+            </TouchableWithoutFeedback>
+        );
+    };
+    ~~~
+
+14) Update `App` component
+
+    - `content` variable defined to manage screen components
+    - `userNumber` state determines re-assignment of `content` variable from default `StartGameScreen` to `GameScreen`
+    - `startGameHandler` is passed down as a prop must into `StartGameScreen` and accepts validated `confirmedVal` user input
+
+    ~~~ js
+    // App.js
+    import React, {useState} from 'react';
+    import { StyleSheet, View } from 'react-native';
+    import Header from './components/Header';
+    import StartGameScreen from './screens/StartGameScreen';
+    import GameScreen from './screens/GameScreen';
+
+    export default function App() {
+
+        // while userNumber exists, GameScreen component should be active
+        const [userNumber, setUserNumber] = useState('');
+
+
+        // currentGuess from GameScreen component should be passed into handler
+        const startGameHandler = (selectedNumber) => {
+            setUserNumber(selectedNumber);
+            console.log('Chosen Number ', selectedNumber)
+        }
+
+        let content = <StartGameScreen startGameHandler = {startGameHandler} />;
+        
+
+        if (userNumber) {
+            content = <GameScreen userNumber = {userNumber}/>
+        } 
+
+        return (
+            <View style={styles.screen}>
+                <Header title = "Guess a Number" />
+                
+                {content}
+                        
+            </View>
+        );
+    }
+
+    const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+
+    },
+    })
+    ~~~
+
+

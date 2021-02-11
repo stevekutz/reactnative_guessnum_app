@@ -34,7 +34,7 @@ const GameScreen = props => {
     return (
         <View style = {styles.screen}>
             <Text> Guess Number {props.userNumber}</Text>
-            {/* <NumberContainer> {currentGuess} </NumberContainer> */} 
+            <NumberContainer> {currentGuess} </NumberContainer>
             <Card style = {styles.buttonContainer}>
                 <Button title = 'Lower' onPress = {() => {}} />
                 

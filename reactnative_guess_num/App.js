@@ -21,6 +21,7 @@ export default function App() {
     
 
     if (userNumber) {
+        console.log('userNumber is ', userNumber)
         content = <GameScreen userNumber = {userNumber}/>
     } 
 
@@ -28,11 +29,8 @@ export default function App() {
         <View style={styles.screen}>
             <Header title = "Guess a Number" />
             
-            {/* <StartGameScreen /> */}
             {content}
-            {/* <GameScreen/> */}
-        
-        
+                    
         </View>
     );
 }
@@ -43,3 +41,4 @@ const styles = StyleSheet.create({
 
   },
 });
+
