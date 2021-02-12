@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Button, Text, View, StyleSheet, Alert} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
@@ -7,13 +7,14 @@ import Card from '../components/Card';
 
 // use function outside to not require re-render and improve performance
 // uses recursion to call itself from within
-
+ 
 const generateRandomBetween = (min, max, excludeVal) => {
 
     min = Math.ceil(min)    // rounds up to next largest integer
     max = Math.floor(max)   // return largest integer <= the provided numerical argument
 
-    const randomNum = Math.floor(Math.random() * (max-min)) + min;
+    // generate random number between min(included) & max(excluded)
+    const randomNum = Math.floor( Math.random() * (max-min) + min);
 
     // verify
     // do not allow computer to guess user's number on first guess
@@ -29,9 +30,22 @@ const generateRandomBetween = (min, max, excludeVal) => {
 
 const GameScreen = props => {
 
+    // generate number 
     const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
+
+
+    // useRef creates obj that can be bound to inputs
+    //  useRef allows values to persist throughout component re-renders
     const currentLow = useRef(1);
     const currentHigh = useRef(100)
+
+    // useEffect runs AFTEr component re-renders
+    useEffect( () => {
+        if (props.userNumber) {
+            
+        
+        }
+    })
 
     const nextGuessHandler = direction => {
 

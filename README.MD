@@ -605,105 +605,113 @@
 
 12) Setup GameScreen component
 
-    ~~~ js
-    // GameScreen.js
-    import React from 'react';
-    import {Text, View, StyleSheet} from 'react-native';
+    - `useRef` used to allows variables to persist between component re-renders
 
-    // use function outside to not require re-render and improve performance
-    // uses recursion to call itself from within
+        ~~~ js
+        // GameScreen.js
+        import React, {useState, useRef} from 'react';
+        import {Button, Text, View, StyleSheet, Alert} from 'react-native';
 
-    const generateRandomBetween = (min, max, excludeVal) => {
+        import NumberContainer from '../components/NumberContainer';
+        import Card from '../components/Card';
 
-        min = Math.ceil(min)    // rounds up number to next largest integer
-        max = Math.floor(max)   // return largest integer <= the provided numerical argument
+        // use function outside to not require re-render and improve performance
+        // uses recursion to call itself from within
 
-        const randomNum = Math.floor(Math.random() * (max-min) + min);
+        const generateRandomBetween = (min, max, excludeVal) => {
 
-        // verify
-        // do not allow first choice to given
-        if (randomNum === excludeVal) {
-            return generateRandomBetween(min, max, excludeVal);
-        } else {
-            return randomNum;
-        }
+            min = Math.ceil(min)    // rounds up number to next largest integer
+            max = Math.floor(max)   // return largest integer <= the provided numerical argument
 
-    }
+            const randomNum = Math.floor(Math.random() * (max-min) + min);
 
-    const GameScreen = props => {
-
-        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
-        const currentLow = useRef(1);
-        const currentHigh = useRef(100)
-
-        const nextGuessHandler = direction => {
-
-            console.log( 'direction is ', direction );
-
-            if (
-                (direction === 'lower' && currentGuess < props.userNumber) ||
-                (direction === 'higher' && currentGuess > props.userNumber)
-            ) {
-            Alert.alert("Don't lie!", 'You know that this is wrong...', [
-                { text: 'Sorry!', style: 'cancel' }
-            ]);
-            return;
-            }
-            if (direction === 'lower') {
-                currentHigh.current = currentGuess;
+            // verify
+            // do not allow first choice to given
+            if (randomNum === excludeVal) {
+                return generateRandomBetween(min, max, excludeVal);
             } else {
-                currentLow.current = currentGuess;
+                return randomNum;
             }
 
-            const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
-            setCurrentGuess(nextNumber);
         }
 
+        const GameScreen = props => {
 
-        return (
-            <View style = {styles.screen}>
-                {/* <Text> Computer guessed number {props.userNumber}</Text> */}
-                <Text> Computer guessed number </Text>
-                <NumberContainer> {currentGuess} </NumberContainer>
-                <Card style = {styles.buttonContainer}>
-                    <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
+            const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
+
+            // useRef creates obj that can be bound to inputs
+            //   useRef allows values to persist throughout component re-renders
+            const currentLow = useRef(1);
+            const currentHigh = useRef(100)
+
+            const nextGuessHandler = direction => {
+
+                console.log( 'direction is ', direction );
+
+                if (
+                    (direction === 'lower' && currentGuess < props.userNumber) ||
+                    (direction === 'higher' && currentGuess > props.userNumber)
+                ) {
+                Alert.alert("Don't lie!", 'You know that this is wrong...', [
+                    { text: 'Sorry!', style: 'cancel' }
+                ]);
+                return;
+                }
+                if (direction === 'lower') {
+                    currentHigh.current = currentGuess;
+                } else {
+                    currentLow.current = currentGuess;
+                }
+
+                const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+                setCurrentGuess(nextNumber);
+            }
+
+
+            return (
+                <View style = {styles.screen}>
+                    {/* <Text> Computer guessed number {props.userNumber}</Text> */}
+                    <Text> Computer guessed number </Text>
+                    <NumberContainer> {currentGuess} </NumberContainer>
+                    <Card style = {styles.buttonContainer}>
+                        <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
+                        
+                        <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
                     
-                    <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
-                
-                </Card>
-            </View>    
-        )
-    }
-
-    const styles = StyleSheet.create({
-        screen: {
-            borderWidth: 2,
-            borderColor: 'darkred',
-            
-            margin: 20,
-            flex: 1,
-            padding: 8,
-            alignItems: 'center',
-
-        
-        },
-        buttonContainer: {
-            
-            margin: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '80%',
-            maxWidth: '85%', 
-        
+                    </Card>
+                </View>    
+            )
         }
 
+        const styles = StyleSheet.create({
+            screen: {
+                borderWidth: 2,
+                borderColor: 'darkred',
+                
+                margin: 20,
+                flex: 1,
+                padding: 8,
+                alignItems: 'center',
+
+            
+            },
+            buttonContainer: {
+                
+                margin: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '80%',
+                maxWidth: '85%', 
+            
+            }
 
 
-    })
+
+        })
 
 
-    export default GameScreen;
-    ~~~
+        export default GameScreen;
+        ~~~
 
 13) Update `StartGameScreen` component
 
@@ -829,49 +837,106 @@
     - `userNumber` state determines re-assignment of `content` variable from default `StartGameScreen` to `GameScreen`
     - `startGameHandler` is passed down as a prop must into `StartGameScreen` and accepts validated `confirmedVal` user input
 
-    ~~~ js
-    // App.js
-    import React, {useState} from 'react';
-    import { StyleSheet, View } from 'react-native';
-    import Header from './components/Header';
-    import StartGameScreen from './screens/StartGameScreen';
-    import GameScreen from './screens/GameScreen';
+        ~~~ js
+        // App.js
+        import React, {useState} from 'react';
+        import { StyleSheet, View } from 'react-native';
+        import Header from './components/Header';
+        import StartGameScreen from './screens/StartGameScreen';
+        import GameScreen from './screens/GameScreen';
 
-    export default function App() {
+        export default function App() {
 
-        // while userNumber exists, GameScreen component should be active
-        const [userNumber, setUserNumber] = useState('');
+            // while userNumber exists, GameScreen component should be active
+            const [userNumber, setUserNumber] = useState('');
 
 
-        // currentGuess from GameScreen component should be passed into handler
-        const startGameHandler = (selectedNumber) => {
-            setUserNumber(selectedNumber);
-            console.log('Chosen Number ', selectedNumber)
+            // currentGuess from GameScreen component should be passed into handler
+            const startGameHandler = (selectedNumber) => {
+                setUserNumber(selectedNumber);
+                console.log('Chosen Number ', selectedNumber)
+            }
+
+            let content = <StartGameScreen startGameHandler = {startGameHandler} />;
+            
+
+            if (userNumber) {
+                content = <GameScreen userNumber = {userNumber}/>
+            } 
+
+            return (
+                <View style={styles.screen}>
+                    <Header title = "Guess a Number" />
+                    
+                    {content}
+                            
+                </View>
+            );
         }
 
-        let content = <StartGameScreen startGameHandler = {startGameHandler} />;
-        
+        const styles = StyleSheet.create({
+        screen: {
+            flex: 1,
 
-        if (userNumber) {
-            content = <GameScreen userNumber = {userNumber}/>
-        } 
+        },
+        })
+        ~~~
 
-        return (
-            <View style={styles.screen}>
-                <Header title = "Guess a Number" />
-                
-                {content}
-                        
-            </View>
-        );
-    }
+15) Create `GameOver` screen 
+    - displayed when computer 'guesses' user's `userNumber`
 
-    const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
+        ~~~ js
+        import React from 'react';
+        import {Text, View, Button, StyleSheet} from 'react-native';
 
-    },
-    })
-    ~~~
+        const GameOver = props => {
 
+            return (
+                <View>
+                    <Text> Game Over ! </Text>
+                </View>
+            )
+        }
 
+        const styles = StyleSheet.create({
+            screen: {
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+
+            }
+
+        })
+
+        export default GameOver;
+        ~~~
+
+16) Add logic to `GameScreen` to detect if correct number guessed
+
+    - useEffect used to check if userNumber is guessed by computer
+
+        ~~~ js
+        import React from 'react';
+        import {Text, View, Button, StyleSheet} from 'react-native';
+
+        const GameOverScreen = props => {
+
+            return (
+                <View>
+                    <Text> Game Over ! </Text>
+                </View>
+            )
+        }
+
+        const styles = StyleSheet.create({
+            screen: {
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+
+            }
+
+        })
+
+        export default GameOverScreen;
+        ~~~
