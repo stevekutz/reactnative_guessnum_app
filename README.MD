@@ -306,6 +306,7 @@
     - define colors.js
 
     ~~~ js
+    // colors.js            
     export default {
         primary: '#B717FC',
         accent: '#97287c',
@@ -316,8 +317,10 @@
     - import into `StartGameScreen` and assign dynamic values to `colors`
 
     ~~~ js
+    // StartGameScreen.js
+    ...
     import Colors from '../constants/colors';
-
+    ...
 
     const StartGameScreen = props => {
         return (
@@ -344,7 +347,7 @@
 
 7) Add TextInput component
 
-    - props are spread in from where `Input` is used within `StartGameScreen` instead of within `Input` itself
+    - props are spread in from where `Input` is used within `StartGameScreen` instead of defining variables within `Input` itself since state is defined within `StartGameScreen`
     - `styles.input` uses styles defined within the `Input` component
     - `props.style` uses styles defined from where `Input` is used within `StartGameScreen`
 
@@ -383,6 +386,7 @@
     - replace the `TextInput` component within `StartGameScreen` with the imported `Input` component
 
         ~~~ js
+        // StartGameScreen.js
         ...
             <Text> Select a Number </Text> 
             {/* <TextInput />  */}
@@ -409,6 +413,7 @@
     - the `Input` component is provided the  updated value prop
 
         ~~~ js
+        // StartGameScreen.js
         ...
         const StartGameScreen = props => {
 
@@ -440,12 +445,15 @@
     - 
 
         ~~~ js
+        // StartGameScreen.js
+        ...
         const [confirmed, setConfirmed] = useState(false)
         const [confirmedVal, setConfirmedVal] = useState('')
-        const [numberMessage, setNumberMessage] = useState('Select a Number');
+        ...
         ~~~
 
         ~~~ js
+        ...
         const resetHandler = () => {
             setNumVal('');
             setConfirmed(false);
@@ -476,14 +484,15 @@
 
         
         }
+        ...
         ~~~
 
-   - user message is conditionally rendered
+   - user message is conditionally rendered based of boolean state of `confirmed`
 
         ~~~ js
+        // StartGameScreen.js
         ...
         <Text> Enter a number </Text> 
-        {/* <TextInput />  */}
         <Input 
             style = {styles.input} 
             blurOnSubmit 
@@ -528,6 +537,8 @@
     - update logic that checks input
 
         ~~~ js
+        // StartGameScreen.js
+        ...
             if ( Number.isNaN(chosenVal) || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
             //   the following does not detect NaN
             // if ( chosenVal === NaN || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
@@ -547,9 +558,10 @@
             }
         ~~~
 
-11) Add NumberContainer        
+11) Add NumberContainer component
 
     ~~~ js
+    // NumberContainer.js
     import React from 'react';
     import {View, Text, StyleSheet} from 'react-native';
 
@@ -594,6 +606,7 @@
 12) Setup GameScreen component
 
     ~~~ js
+    // GameScreen.js
     import React from 'react';
     import {Text, View, StyleSheet} from 'react-native';
 
@@ -602,8 +615,8 @@
 
     const generateRandomBetween = (min, max, excludeVal) => {
 
-        min = Math.ceil(min)    
-        max = Math.ceil(max)
+        min = Math.ceil(min)    // rounds up number to next largest integer
+        max = Math.floor(max)   // return largest integer <= the provided numerical argument
 
         const randomNum = Math.floor(Math.random() * (max-min) + min);
 
@@ -619,16 +632,43 @@
 
     const GameScreen = props => {
 
-        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
+        const currentLow = useRef(1);
+        const currentHigh = useRef(100)
+
+        const nextGuessHandler = direction => {
+
+            console.log( 'direction is ', direction );
+
+            if (
+                (direction === 'lower' && currentGuess < props.userNumber) ||
+                (direction === 'higher' && currentGuess > props.userNumber)
+            ) {
+            Alert.alert("Don't lie!", 'You know that this is wrong...', [
+                { text: 'Sorry!', style: 'cancel' }
+            ]);
+            return;
+            }
+            if (direction === 'lower') {
+                currentHigh.current = currentGuess;
+            } else {
+                currentLow.current = currentGuess;
+            }
+
+            const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+            setCurrentGuess(nextNumber);
+        }
+
 
         return (
             <View style = {styles.screen}>
-                <Text> Guess Number {props.userNumber}</Text>
-                {/* <NumberContainer> {currentGuess} </NumberContainer> */} 
+                {/* <Text> Computer guessed number {props.userNumber}</Text> */}
+                <Text> Computer guessed number </Text>
+                <NumberContainer> {currentGuess} </NumberContainer>
                 <Card style = {styles.buttonContainer}>
-                    <Button title = 'Lower' onPress = {() => {}} />
+                    <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
                     
-                    <Button title = 'Higher' onPress = {() => {}} />
+                    <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
                 
                 </Card>
             </View>    
@@ -670,10 +710,9 @@
     - `numVal` state manages value from `Input` component
     - `confirmedVal` validates user input
     - `confirmed` boolean manages state of current valid input
-    - defining `confirmedComponent` is used instead of conditionally rendering component to prevent a re-render of `GameScreen` from within `App` which causes a new number to be passed into `NumberContainer` since `userChoice` prop is passed to GameScreen to generate a random number:
 
         ~~~ js
-        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
         ~~~
 
 
@@ -688,30 +727,22 @@
         const [confirmedVal, setConfirmedVal] = useState('')
 
         const handleNumberInput = inputTextVal => {
-
-
             setNumVal(inputTextVal.replace(/[^0-9]/g, ''));        
         }
 
         const resetHandler = () => {
             setNumVal('');
-            setConfirmed(false);
-        
+            setConfirmed(false);        
         }
 
         const confirmHandler = () => {
 
             const chosenVal = parseInt(numVal);
-            // console.log("chosenVal is ", chosenVal)
 
-
-            // Verify value is valid number 0
-            
+            // Verify value is valid number           
+                //   chosenVal === NaN does not detect NaN
             if ( Number.isNaN(chosenVal) || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
-            //   the following does not detect NaN
-            // if ( chosenVal === NaN || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
-                // setNumVal('');
-                // console.log("numVal is ", numVal)
+
                 setConfirmed(false);
                 Alert.alert(
                     'Invalid input',  // title

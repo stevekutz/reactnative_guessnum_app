@@ -10,13 +10,13 @@ import Card from '../components/Card';
 
 const generateRandomBetween = (min, max, excludeVal) => {
 
-    min = Math.ceil(min)    
-    max = Math.ceil(max)
+    min = Math.ceil(min)    // rounds up to next largest integer
+    max = Math.floor(max)   // return largest integer <= the provided numerical argument
 
     const randomNum = Math.floor(Math.random() * (max-min)) + min;
 
     // verify
-    // do not allow first choice to given
+    // do not allow computer to guess user's number on first guess
     if (randomNum === excludeVal) {
         return generateRandomBetween(min, max, excludeVal);
     } else {
@@ -29,26 +29,23 @@ const generateRandomBetween = (min, max, excludeVal) => {
 
 const GameScreen = props => {
 
-    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
     const currentLow = useRef(1);
     const currentHigh = useRef(100)
 
     const nextGuessHandler = direction => {
-        // if guess is out of bounds of available range
-        if (
-                (direction === 'lower' && currentGuess < props.userChoice) || 
-                (direction === 'higher' && currentGuess > props.userChoice)
-            ) {
-                Alert.alert("Not True", "Out of range", [
-                    {text: 'Try again', style: 'cancel'}
-                ]);
-            return;
-        }
-        // if guess within available range, generate a new random number
 
-        // useRef creates obj that an be bound to inputs
-        // useRef allows defining a value that persists after re-renders
-        //   Keep track of guess range values
+        console.log( 'direction is ', direction );
+
+        if (
+            (direction === 'lower' && currentGuess < props.userNumber) ||
+            (direction === 'higher' && currentGuess > props.userNumber)
+        ) {
+        Alert.alert("Don't lie!", 'You know that this is wrong...', [
+            { text: 'Sorry!', style: 'cancel' }
+        ]);
+        return;
+        }
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
@@ -62,12 +59,13 @@ const GameScreen = props => {
 
     return (
         <View style = {styles.screen}>
-            <Text> Computer guessed number {props.userNumber}</Text>
+            {/* <Text> Computer guessed number {props.userNumber}</Text> */}
+            <Text> Computer guessed number </Text>
             <NumberContainer> {currentGuess} </NumberContainer>
             <Card style = {styles.buttonContainer}>
-                <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'higher')} />
+                <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
                 
-                <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'lower')} />
+                <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
             
             </Card>
         </View>    

@@ -7,8 +7,8 @@ import GameScreen from './screens/GameScreen';
 
 export default function App() {
 
-    // while userNumber exists, GameScreen component should be active
-    const [userNumber, setUserNumber] = useState('');
+    // while userNumber exists, GameScreen component should be active , NOT ''
+    const [userNumber, setUserNumber] = useState();
 
 
     // currentGuess from GameScreen component should be passed into handler
