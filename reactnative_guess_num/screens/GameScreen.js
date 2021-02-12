@@ -41,8 +41,8 @@ const GameScreen = props => {
 
     // useEffect runs AFTEr component re-renders
     useEffect( () => {
-        if (props.userNumber) {
-            
+        if (currentGuess === props.userNumber) {
+            props.gameOverHandler()
         
         }
     })

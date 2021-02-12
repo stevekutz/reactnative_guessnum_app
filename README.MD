@@ -882,14 +882,15 @@
         })
         ~~~
 
-15) Create `GameOver` screen 
+15) Create `GameOverScreen` component
+
     - displayed when computer 'guesses' user's `userNumber`
 
         ~~~ js
         import React from 'react';
         import {Text, View, Button, StyleSheet} from 'react-native';
 
-        const GameOver = props => {
+        const GameOverScreen = props => {
 
             return (
                 <View>
@@ -908,10 +909,50 @@
 
         })
 
-        export default GameOver;
+        export default GameOverScreen;
         ~~~
 
-16) Add logic to `GameScreen` to detect if correct number guessed
+16) Update `App` to handle counting guess atempts and game over
+
+    - `guessAttempts` added to `App` state
+    - `startGameHandler` will reset guesses to 0 from previous game 
+    - `gameOverHandler` manages counting guesses
+
+        ~~~ js
+        ...
+        import GameOverScreen from './screens/GameOverScreen';
+        ...
+
+        export default function App() {
+
+            // while userNumber exists, GameScreen component should be active , NOT ''
+            const [userNumber, setUserNumber] = useState();
+            const [guessAttempts, setGuessAttempts] =  useState(0);
+
+            // currentGuess from GameScreen component should be passed into handler
+            const startGameHandler = (selectedNumber) => {
+                setUserNumber(selectedNumber);
+                setGuessAttempts(0)
+                // console.log('Chosen Number ', selectedNumber)
+            }
+
+            const gameOverHandler = (attemptCount) => {
+                setGuessAttempts(attemptCount)
+            
+            }
+            ...
+            if (userNumber && guessRounds <= 0) {
+                console.log('userNumber is ', userNumber)
+                content = <GameScreen userNumber = {userNumber} gameOverHandler = {gameOverHandler} />
+            } else if (guessAtempts) {
+                content = <GameOverScreen />
+    }
+
+        ~~~
+
+
+
+17) Add logic to `GameScreen` to detect if correct number guessed
 
     - useEffect used to check if userNumber is guessed by computer
 
