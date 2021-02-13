@@ -469,10 +469,6 @@
             // Verify value is valid number 0
             
             if ( Number.isNaN(chosenVal) || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
-            //   the following does not detect NaN
-            // if ( chosenVal === NaN || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
-                // setNumVal('');
-                // console.log("numVal is ", numVal)
                 setConfirmed(false);
                 return;
             }
@@ -524,7 +520,7 @@
             ? 
                 <Text> {numberMessage} confirmed </Text>
             : 
-                <Text> Ready for numerical input </Text>
+                null
         }
         </View> 
         ...
@@ -893,8 +889,11 @@
         const GameOverScreen = props => {
 
             return (
-                <View>
+                <View style = {styles.screen}>
                     <Text> Game Over ! </Text>
+                    <Text> Number of Guess Attempts: {props.guessAttempts}</Text>
+                    <Text> User's number was {props.userNumber} </Text>
+                    <Button title = 'Play again' onPress = {props.startGameHandler} />
                 </View>
             )
         }
@@ -919,6 +918,7 @@
     - `gameOverHandler` manages counting guesses
 
         ~~~ js
+        // App.js
         ...
         import GameOverScreen from './screens/GameOverScreen';
         ...
@@ -943,7 +943,11 @@
             ...
             if (userNumber && guessRounds <= 0) {
                 console.log('userNumber is ', userNumber)
-                content = <GameScreen userNumber = {userNumber} gameOverHandler = {gameOverHandler} />
+                content = <GameScreen 
+                            userNumber = {userNumber} 
+                            gameOverHandler = {gameOverHandler} 
+                            
+                          />
             } else if (guessAtempts) {
                 content = <GameOverScreen />
     }
@@ -955,29 +959,75 @@
 17) Add logic to `GameScreen` to detect if correct number guessed
 
     - useEffect used to check if userNumber is guessed by computer
+    - destructuring added 
+    - 'guessCount' added to local state and incremented within `nextGuessHandler`
+    - 
 
         ~~~ js
-        import React from 'react';
-        import {Text, View, Button, StyleSheet} from 'react-native';
+        // GameScreen.js
+        ...
+        // define localState to count guesses within GameScreen component
+        const [guessCount, setGuessCount] = useState(0);
 
-        const GameOverScreen = props => {
+        // destructure props
+        const {userNumber, gameOverHandler} = props;
 
-            return (
-                <View>
-                    <Text> Game Over ! </Text>
-                </View>
-            )
-        }
+        // useEffect runs AFTER component re-renders
+        useEffect( () => {
 
-        const styles = StyleSheet.create({
-            screen: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
+            console.log("useEffect props.guessCount", guessCount);
+            console.log("guessCount ", guessCount);
 
+            if (currentGuess === props.userNumber) {
+                gameOverHandler(guessCount);       
             }
-
-        })
-
-        export default GameOverScreen;
+        // }, [currentGuess, gameOverHandler, userNumber]);
+        }, [currentGuess]);
+        ...
         ~~~
+
+18) Update startGamehandler to handle starting new game before & after game played
+
+    ~~~ js
+    // App.js
+    ...
+    // define localState to count guesses within GameScreen component
+    const [guessCount, setGuessCount] = useState(0);
+
+
+    // destructure props
+    const {userNumber, gameOverHandler} = props;
+
+    // useEffect runs AFTER component re-renders
+    useEffect( () => {
+
+        console.log("useEffect props.guessCount", guessCount);
+        console.log("guessCount ", guessCount);
+
+        if (currentGuess === props.userNumber) {
+            gameOverHandler(guessCount);       
+        }
+    // }, [currentGuess, gameOverHandler, userNumber]);
+    }, [currentGuess]);
+    ...
+    if (userNumber && guessAttempts <= 0) {
+        console.log('userNumber is ', userNumber)
+        content = (
+            <GameScreen 
+                userNumber = {userNumber} 
+                gameOverHandler = {gameOverHandler}                     
+            />
+                
+        )
+    } else if (guessAttempts > 0) {
+        content = (
+        
+            <GameOverScreen
+                guessAttempts = {guessAttempts}
+                userNumber = {userNumber}
+                startGameHandler = {startGameHandler}
+             />
+        )
+        
+    }
+    ~~~

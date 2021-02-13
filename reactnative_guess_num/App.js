@@ -14,8 +14,15 @@ export default function App() {
 
     // currentGuess from GameScreen component should be passed into handler
     const startGameHandler = (selectedNumber) => {
-        setUserNumber(selectedNumber);
-        setGuessAttempts(0)
+
+        if (guessAttempts) {
+            setUserNumber(null);
+        } else {
+            setUserNumber(selectedNumber);
+        }
+
+        setGuessAttempts(0)        
+
         // console.log('Chosen Number ', selectedNumber)
     }
 
@@ -29,11 +36,27 @@ export default function App() {
     let content = <StartGameScreen startGameHandler = {startGameHandler} />;
     
 
-    if (userNumber && guessRounds <= 0) {
+    if (userNumber && guessAttempts <= 0) {
         console.log('userNumber is ', userNumber)
-        content = <GameScreen userNumber = {userNumber} gameOverHandler = {gameOverHandler} />
-    } else if (guessAttempts) {
-        content = <GameOverScreen />
+        content = (
+            <GameScreen 
+                userNumber = {userNumber} 
+                gameOverHandler = {gameOverHandler} 
+                    
+            />
+        
+        
+        )
+    } else if (guessAttempts > 0) {
+        content = (
+        
+            <GameOverScreen
+                guessAttempts = {guessAttempts}
+                userNumber = {userNumber}
+                startGameHandler = {startGameHandler}
+             />
+        )
+        
     }
 
     return (

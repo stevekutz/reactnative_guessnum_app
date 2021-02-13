@@ -99,7 +99,8 @@ const StartGameScreen = props => {
                         
                         </Card>
                     : 
-                        <Text> Ready for numerical input </Text>
+                        null
+                        
                 }
                 </View>
 

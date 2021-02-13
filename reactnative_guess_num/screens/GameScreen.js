@@ -39,13 +39,24 @@ const GameScreen = props => {
     const currentLow = useRef(1);
     const currentHigh = useRef(100)
 
-    // useEffect runs AFTEr component re-renders
+    // define localState to count guesses within GameScreen component
+    const [guessCount, setGuessCount] = useState(0);
+
+
+    // destructure props
+    const {userNumber, gameOverHandler} = props;
+
+    // useEffect runs AFTER component re-renders
     useEffect( () => {
+
+        console.log("useEffect props.guessCount", guessCount);
+        console.log("guessCount ", guessCount);
+
         if (currentGuess === props.userNumber) {
-            props.gameOverHandler()
-        
+            gameOverHandler(guessCount);       
         }
-    })
+    // }, [currentGuess, gameOverHandler, userNumber]);
+    }, [currentGuess]);
 
     const nextGuessHandler = direction => {
 
@@ -55,8 +66,8 @@ const GameScreen = props => {
             (direction === 'lower' && currentGuess < props.userNumber) ||
             (direction === 'higher' && currentGuess > props.userNumber)
         ) {
-        Alert.alert("Don't lie!", 'You know that this is wrong...', [
-            { text: 'Sorry!', style: 'cancel' }
+        Alert.alert("Invalid direction!", 'Please select correct hint', [
+            { text: 'OK!', style: 'cancel' }
         ]);
         return;
         }
@@ -68,6 +79,7 @@ const GameScreen = props => {
 
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
+        setGuessCount( guessVal => guessVal + 1)
     }
 
 
