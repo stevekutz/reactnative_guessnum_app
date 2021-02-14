@@ -30,8 +30,11 @@ const generateRandomBetween = (min, max, excludeVal) => {
 
 const GameScreen = props => {
 
+    // destructure props
+    const {userNumber, gameOverHandler} = props;
+
     // generate number 
-    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
+    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userNumber));
 
 
     // useRef creates obj that can be bound to inputs
@@ -43,16 +46,13 @@ const GameScreen = props => {
     const [guessCount, setGuessCount] = useState(0);
 
 
-    // destructure props
-    const {userNumber, gameOverHandler} = props;
-
     // useEffect runs AFTER component re-renders
     useEffect( () => {
 
         console.log("useEffect props.guessCount", guessCount);
         console.log("guessCount ", guessCount);
 
-        if (currentGuess === props.userNumber) {
+        if (currentGuess === userNumber) {
             gameOverHandler(guessCount);       
         }
     // }, [currentGuess, gameOverHandler, userNumber]);
@@ -63,8 +63,8 @@ const GameScreen = props => {
         console.log( 'direction is ', direction );
 
         if (
-            (direction === 'lower' && currentGuess < props.userNumber) ||
-            (direction === 'higher' && currentGuess > props.userNumber)
+            (direction === 'lower' && currentGuess < userNumber) ||
+            (direction === 'higher' && currentGuess > userNumber)
         ) {
         Alert.alert("Invalid direction!", 'Please select correct hint', [
             { text: 'OK!', style: 'cancel' }
@@ -90,6 +90,7 @@ const GameScreen = props => {
             <NumberContainer> {currentGuess} </NumberContainer>
             <Card style = {styles.buttonContainer}>
                 <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
+                {/* <Button title = 'Lower2' onPress = {() => nextGuessHandler('lower')} />  */}
                 
                 <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
             

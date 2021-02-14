@@ -966,11 +966,18 @@
         ~~~ js
         // GameScreen.js
         ...
+        // destructure props
+        const {userNumber, gameOverHandler} = props;
+        
+        // generate number 
+        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userNumber));
+        ...
+
+
+        ...
         // define localState to count guesses within GameScreen component
         const [guessCount, setGuessCount] = useState(0);
 
-        // destructure props
-        const {userNumber, gameOverHandler} = props;
 
         // useEffect runs AFTER component re-renders
         useEffect( () => {
@@ -984,31 +991,21 @@
         // }, [currentGuess, gameOverHandler, userNumber]);
         }, [currentGuess]);
         ...
+        const nextGuessHandler = direction => {
+
+        console.log( 'direction is ', direction );
+
+        if (
+            (direction === 'lower' && currentGuess < userNumber) ||
+            (direction === 'higher' && currentGuess > userNumber)
+        ) {
+        ...
         ~~~
 
 18) Update startGamehandler to handle starting new game before & after game played
 
     ~~~ js
     // App.js
-    ...
-    // define localState to count guesses within GameScreen component
-    const [guessCount, setGuessCount] = useState(0);
-
-
-    // destructure props
-    const {userNumber, gameOverHandler} = props;
-
-    // useEffect runs AFTER component re-renders
-    useEffect( () => {
-
-        console.log("useEffect props.guessCount", guessCount);
-        console.log("guessCount ", guessCount);
-
-        if (currentGuess === props.userNumber) {
-            gameOverHandler(guessCount);       
-        }
-    // }, [currentGuess, gameOverHandler, userNumber]);
-    }, [currentGuess]);
     ...
     if (userNumber && guessAttempts <= 0) {
         console.log('userNumber is ', userNumber)
