@@ -1028,3 +1028,51 @@
         
     }
     ~~~
+
+
+### Setting up Custom Fonts
+
+1) Create assets/fonts folder and add some font files 
+
+2) Add imports
+
+    ~~~ js
+    // App.js
+    import * as Font from 'expo-font';
+    import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
+    ~~~
+
+3) Create `fetchFonts` function ouside main `App` function
+
+    ~~~ js
+    //App.js
+    const fetchFont = () => {
+        
+        // returns a Promise
+        Font.loadAsync({
+        'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
+        'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
+        'hemihead' : require('./assets/fonts/HEMIHEAD.TTF')
+
+        });
+
+    }
+    ~~~
+
+4) Create Hook and logic for managing `AppLoading`
+
+    ~~~ js
+        const [dataLoaded, setDataLoaded] = useState(false);
+
+        if (!dataLoaded) {
+            return (
+                <AppLoading 
+                    startAsync = {fetchFonts} 
+                    onFinish = {() => setDataLoaded(true)}
+                    onError = {() => console.log(err)}
+                />
+            
+            )
+            
+        }
+    ~~~
