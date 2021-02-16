@@ -1035,11 +1035,15 @@
 1) Create assets/fonts folder and add some font files 
 
 2) Add imports
+    - NOTE: Expo has first-class support for all fonts listed in Google Fonts
+    - newer versions of `react-native` require implementing `AppLoading` using the `expo-app-loading` dependency installed using `expo install expo-app-loading`
 
     ~~~ js
     // App.js
     import * as Font from 'expo-font';
-    import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
+    // import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
+
+    import AppLoading from 'expo-app-loading';
     ~~~
 
 3) Create `fetchFonts` function ouside main `App` function
@@ -1049,15 +1053,24 @@
     const fetchFont = () => {
         
         // returns a Promise
-        Font.loadAsync({
+        return Font.loadAsync({
         'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
         'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
         'hemihead' : require('./assets/fonts/HEMIHEAD.TTF')
-
+                
         });
 
     }
     ~~~
+
+    OR using `async/await` :
+
+    ~~~ js
+    const fetchFonts = async () => {
+    
+        await Font.loadAsync({
+    ~~~
+
 
 4) Create Hook and logic for managing `AppLoading`
 
@@ -1075,4 +1088,13 @@
             )
             
         }
+    ~~~
+
+5) Add font to `StyleSheet` in `StartGameScreen`
+
+    ~~~ js
+    title: {
+    fontSize: 22,
+    marginVertical: 10,
+    fontFamily: 'atures900',
     ~~~

@@ -136,12 +136,13 @@ const styles = StyleSheet.create({
         // // these only work on Android
         // elevation: 5,
 
+
         },
     title: {
         fontSize: 22,
         marginVertical: 10,
-
-    
+        fontFamily: 'atures900',
+        // fontFamily: 'open-sans-bold',
         },
     buttonContainer: {
         borderWidth: 1,
@@ -151,14 +152,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 15,
 
-    
         },
     buttonStyle: {
         borderWidth: 4,
         borderColor: 'pink',
         width: '50%',
         
-    
     },
 
     input: {

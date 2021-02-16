@@ -2,8 +2,8 @@
 import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
-import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
-
+// import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
+import AppLoading from 'expo-app-loading';
 
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
@@ -12,14 +12,13 @@ import GameOverScreen from './screens/GameOverScreen';
 
 
 
-const fetchFonts = () => {
+const fetchFonts = async () => {
     
-    // returns a Promise
-    Font.loadAsync({
+    await Font.loadAsync({
+    // return Font.loadAsync({   // returns a Promise
     'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
     'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
-    'hemihead' : require('./assets/fonts/HEMIHEAD.TTF')
-
+    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
     });
 
 }
