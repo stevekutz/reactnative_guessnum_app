@@ -16,9 +16,12 @@ const fetchFonts = async () => {
     
     await Font.loadAsync({
     // return Font.loadAsync({   // returns a Promise
-    'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
-    'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
-    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
+        'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
+        'atures300' : require('./assets/fonts/Atures-300_PERSONAL_USE.ttf'),
+        'atures500' : require('./assets/fonts/Atures-500_PERSONAL_USE.ttf'),
+        'atures700' : require('./assets/fonts/Atures-700_PERSONAL_USE.ttf'),
+        'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
+        'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
     });
 
 }

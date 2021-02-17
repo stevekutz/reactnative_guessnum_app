@@ -1054,10 +1054,12 @@
         
         // returns a Promise
         return Font.loadAsync({
-        'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
-        'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
-        'hemihead' : require('./assets/fonts/HEMIHEAD.TTF')
-                
+            'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
+            'atures300' : require('./assets/fonts/Atures-300_PERSONAL_USE.ttf'),
+            'atures500' : require('./assets/fonts/Atures-500_PERSONAL_USE.ttf'),
+            'atures700' : require('./assets/fonts/Atures-700_PERSONAL_USE.ttf'),
+            'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
+            'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),                
         });
 
     }
@@ -1098,3 +1100,33 @@
     marginVertical: 10,
     fontFamily: 'atures900',
     ~~~
+
+6) Create `Custom Wrapper Component` 
+
+    - add BodyText
+
+        ~~~ js
+        import React from 'react';
+        import {Text, StyleSheet} from 'react-native';
+
+        const BodyText = props => <Text style = {styles.body}> {props.children} </Text>
+
+        const styles = StyleSheet.create({
+            body: {
+                fontFamily: 'atures500',
+                fontSize: 16,
+                }
+        })
+
+        export default BodyText;
+        ~~~
+
+    - import `BodyText` into `StartGameScreen`
+    - replace default `Text` component with `BodyText`       
+
+        ~~~ js
+        {/* <Text> Enter a number </Text>  */}
+        <BodyText> Enter a Number !! </BodyText>
+        ~~~
+
+        
