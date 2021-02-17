@@ -3,7 +3,7 @@ import {Button, Text, View, StyleSheet, Alert} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
-
+import DefaultStyles from '../constants/default-styles';
 
 // use function outside to not require re-render and improve performance
 // uses recursion to call itself from within
@@ -85,8 +85,8 @@ const GameScreen = props => {
 
     return (
         <View style = {styles.screen}>
-            {/* <Text> Computer guessed number {props.userNumber}</Text> */}
-            <Text> Computer guessed number </Text>
+
+            <Text style = {DefaultStyles.bodyText}> Computer guessed number </Text>
             <NumberContainer> {currentGuess} </NumberContainer>
             <Card style = {styles.buttonContainer}>
                 <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />

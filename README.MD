@@ -1129,4 +1129,31 @@
         <BodyText> Enter a Number !! </BodyText>
         ~~~
 
+7) Create a `Global Style`
+    - define within `constants` folder
+
+        ~~~ js
+        // constants/default-styles.js
+
+        import { StyleSheet } from 'react-native';
+
+        export default StyleSheet.create({
+            bodyText: {
+                fontFamily: 'open-sans',
+                color: 'deeppink',
+                fontSize: 16,
+            }
+        })
+        ~~~
         
+    - import global style into `GameScreen`  
+  
+        ~~~ js
+        import DefaultStyles from '../constants/default-styles';
+        ~~~
+
+    - use style within target component
+
+        ~~~ js
+        <Text style = {DefaultStyles.bodyText}> Computer guessed number </Text>
+        ~~~
