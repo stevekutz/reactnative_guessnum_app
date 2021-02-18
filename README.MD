@@ -1032,7 +1032,7 @@
 
 ### Setting up Custom Fonts
 
-1) Create assets/fonts folder and add some font files 
+1) Create assets/fonts folder and add some font files
 
 2) Add imports
     - NOTE: Expo has first-class support for all fonts listed in Google Fonts
@@ -1204,5 +1204,54 @@
     export default GameOverScreen;
     ~~~
 
+### Adding Images
 
+1) Create assets/img folder and add some png files
 
+2) Add `Image` Core Component import 
+
+    ~~~ js
+    import {Text, View, Button, Card, Image, StyleSheet} from 'react-native';
+    ~~~
+
+3) Add styles for the image and its container
+
+    ~~~ js
+    const styles = StyleSheet.create({
+        screen: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+
+        },
+        imageContainer: {
+            width: '80%',
+            height: 300,
+            borderRadius: 200,
+            borderWidth: 4,
+            overflow: 'hidden',
+            marginVertical: 32,
+        
+        },
+        image: {
+            height: '100%',
+            width: '100%',
+        
+        }
+
+    })
+    ~~~
+
+4) Add `Image` within `View` using `require` to allow `React Native` to determine height & width properties
+
+    ~~~ js
+    ...
+    <View style = {styles.imageContainer}>
+        <Image 
+            style = {styles.image}
+            source = {require('../assets/img/success.png')}
+            resizeMode=  "cover" 
+        />
+    </View>
+    ...
+    ~~~
