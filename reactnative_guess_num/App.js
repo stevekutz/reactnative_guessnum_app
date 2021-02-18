@@ -22,6 +22,7 @@ const fetchFonts = async () => {
         'atures700' : require('./assets/fonts/Atures-700_PERSONAL_USE.ttf'),
         'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
         'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
+        'open-sans' : require('./assets/fonts/OpenSans-Regular.ttf'),
     });
 
 }

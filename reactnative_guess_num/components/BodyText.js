@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     body: {
         fontFamily: 'atures500',
         fontSize: 16,
+        padding: 6,
         }
 })
 

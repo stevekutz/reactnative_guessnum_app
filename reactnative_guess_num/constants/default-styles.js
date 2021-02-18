@@ -5,5 +5,14 @@ export default StyleSheet.create({
         fontFamily: 'open-sans',
         color: 'deeppink',
         fontSize: 16,
-    }
+    },
+    titleText: { 
+        fontFamily: 'atures700',
+        color: 'deeppink',
+        fontSize: 22,
+        padding: 10,
+        // borderWidth: 5,
+        // borderColor: 'blue',
+     },
+
 })
