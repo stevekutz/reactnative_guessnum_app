@@ -16,8 +16,11 @@ const GameOverScreen = props => {
             <View style = {styles.imageContainer}>
                 <Image 
                     style = {styles.image}
-                    source = {require('../assets/img/success.png')}
-                    resizeMode=  "cover" 
+                    // used for local images
+                    //source = {require('../assets/img/success.png')}
+                    // used for network images
+                    source = {{uri: 'https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg'}}
+                    resizeMode = "cover"
                 />
             </View>
             
@@ -42,7 +45,8 @@ const styles = StyleSheet.create({
 
     },
     imageContainer: {
-        width: '80%',
+        //width: '80%',
+        width: 300,
         height: 300,
         borderRadius: 200,
         borderWidth: 4,

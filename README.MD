@@ -1242,9 +1242,13 @@
     })
     ~~~
 
-4) Add `Image` within `View` using `require` to allow `React Native` to determine height & width properties
+4) Add `Image` within `View`
 
 - wrapping inside of `View` provides more styling options
+- `resizeMode = "cover"` scales image so that aspect ration is maintained
+- network images require image dimensions
+- for local images, using `require` allows `React Native` to determine height & width properties
+- for network images, a `uri` prop is used and also must have image dimensions provided
 
     ~~~ js
     ...
@@ -1257,3 +1261,11 @@
     </View>
     ...
     ~~~
+
+- `resizeMode = "cover"` renders an image that is equal to or LARGER to the container 
+
+    <img  src = "reactnative_guess_num/screenshots/image_cover.png" width = "30%"/>
+
+- `resizeMode = "contain"`  renders an image that is equal to or LESS `contain` to the container
+
+    <img src = "reactnative_guess_num/screenshots/image_contain.png" width = "30%"/>
