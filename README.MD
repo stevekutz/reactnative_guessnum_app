@@ -1244,6 +1244,8 @@
 
 4) Add `Image` within `View` using `require` to allow `React Native` to determine height & width properties
 
+- wrapping inside of `View` provides more styling options
+
     ~~~ js
     ...
     <View style = {styles.imageContainer}>
