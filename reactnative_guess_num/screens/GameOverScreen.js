@@ -5,6 +5,33 @@ import DefaultStyles from '../constants/default-styles';
 
 const GameOverScreen = props => {
 
+
+    const sizeInfo = async () => {
+    
+        // let sizeObj = Image.getSize('https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg', console.log("REALLY Loaded"))
+        await Image.getSize('https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg', 
+            (width, height) => { 
+                if (width > height) {
+                    console.log("width BIGGER ", width)
+
+                }
+                else if (width < height) {
+                    console.log("height BIGGER", height)
+                }
+            
+                console.log(`width X height ${width} ${height}`)
+        
+            }
+        )
+
+
+        // console.log("REALLY Loaded")
+        // console.log("sizeObj is ", sizeObj)
+
+    
+    }
+
+
     return (
         <View style = {styles.screen}>
         {/*
@@ -21,6 +48,9 @@ const GameOverScreen = props => {
                     // used for network images
                     source = {{uri: 'https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg'}}
                     resizeMode = "cover"
+
+                    // onLoad = {console.log("LOADED")}
+                    onLoad = {() => sizeInfo()}
                 />
             </View>
             

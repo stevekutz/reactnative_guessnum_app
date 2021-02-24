@@ -1262,10 +1262,10 @@
     ...
     ~~~
 
-- `resizeMode = "cover"` renders an image that is equal to or LARGER to the container 
+- `resizeMode = "cover"` renders an image that is equal to or LARGER than the container 
 
     <img  src = "reactnative_guess_num/screenshots/image_cover.png" width = "30%"/>
 
-- `resizeMode = "contain"`  renders an image that is equal to or LESS `contain` to the container
+- `resizeMode = "contain"`  renders an image that is equal to or LESS `contain` than the container
 
     <img src = "reactnative_guess_num/screenshots/image_contain.png" width = "30%"/>
