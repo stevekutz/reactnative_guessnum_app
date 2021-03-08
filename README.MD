@@ -1298,23 +1298,64 @@
         ~~~ js
         ...
         image: {
-        height: '100%',
-        width: '100%',
+            height: '100%',
+            width: '100%',
         },
         resultContainer : {
-        marginHorizontal: 30,
-        marginVertical: 15,
+            marginHorizontal: 30,
+            marginVertical: 15,
         },
 
         highlight: {
-        color: Colors.primary,
-        fontFamily: 'atures900',
+            color: Colors.primary,
+            fontFamily: 'atures900',
         },
 
         userNumberStyle: {
-        color: Colors.numColor,
-        fontFamily: 'atures700',
+            color: Colors.numColor,
+            fontFamily: 'atures700',
 
         }
         ...
         ~~~
+
+6) Build a custom button
+
+    ~~~ js
+    import React from 'react';
+    import {Text, View, TouchableOpacity, StylSheet, TouchableWithoutFeedback} from 'react-native';
+    import Colors from '../constants/colors';
+
+
+    const StartButton = (props) => {
+
+        return (
+            <TouchableOpacity onPress = {()=> {}}>
+                <View style = {styles.button}>
+                    <Text style = {styles.buttonText}> {props.children} </Text>
+                </View>
+            
+            </TouchableOpacity>
+        )
+
+
+    }
+
+    const styles = StyleSheet.create({
+        button: {
+            backgroundColor: Colors.startButton,
+            paddingVertical: 14,
+            paddingHorizontal: 26,
+        },
+        buttonText: {
+            color: 'white',
+            fontFamily: 'open-sans', 
+            fontSize: 18,
+        }
+
+
+    });
+
+    export default StartButton;
+
+    ~~~
