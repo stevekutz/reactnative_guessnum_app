@@ -10,7 +10,7 @@
 		npm install expo-cli --global
 		~~~
 
-2) Create a `React Native` project using `expo-init  [projectName]`
+2) Create a `React Native` project using `expo init  [projectName]`
 
    - choose the `blank` template
    - in the underlined `name` field, enter a name. This will show up in the browser tab when the project is launched
@@ -1249,12 +1249,14 @@
 - network images require image dimensions
 - for local images, using `require` allows `React Native` to determine height & width properties
 - for network images, a `uri` prop is used and also must have image dimensions provided
+- `fadeDuration` allows for first render to fade by amount given in `ms`
 
     ~~~ js
     ...
     <View style = {styles.imageContainer}>
         <Image 
-            style = {styles.image}
+            
+            fadeDuration = {3000}style = {styles.image}
             source = {require('../assets/img/success.png')}
             resizeMode=  "cover" 
         />
@@ -1269,3 +1271,50 @@
 - `resizeMode = "contain"`  renders an image that is equal to or LESS `contain` than the container
 
     <img src = "reactnative_guess_num/screenshots/image_contain.png" width = "30%"/>
+
+
+5) Use nested `Text` components for custom styling
+
+    - `Text` components can be nested and children will inherit styles of parent. Recall that `Text` components do NOT use `Flexbox` while `View` components do
+
+        ~~~ js
+        ... 
+        <BodyText> Number of Guess Attempts: <Text style = {styles.highlight}> {props.guessAttempts} </Text></BodyText>
+        <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
+        ...
+        ~~~
+
+    - styles are merged within `BodyText`
+
+        ~~~ js
+        ...
+        const BodyText = props => <Text style = {{...styles.body, ...props.style}}>
+        ...
+        ~~~
+
+
+    - additional styles are added
+
+        ~~~ js
+        ...
+        image: {
+        height: '100%',
+        width: '100%',
+        },
+        resultContainer : {
+        marginHorizontal: 30,
+        marginVertical: 15,
+        },
+
+        highlight: {
+        color: Colors.primary,
+        fontFamily: 'atures900',
+        },
+
+        userNumberStyle: {
+        color: Colors.numColor,
+        fontFamily: 'atures700',
+
+        }
+        ...
+        ~~~

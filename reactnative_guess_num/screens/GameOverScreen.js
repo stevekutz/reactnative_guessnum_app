@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, Button, Card, Image, StyleSheet} from 'react-native';
 import BodyText from '../components/BodyText';
 import DefaultStyles from '../constants/default-styles';
+import Colors from '../constants/colors';
 
 const GameOverScreen = props => {
 
@@ -43,6 +44,7 @@ const GameOverScreen = props => {
             <View style = {styles.imageContainer}>
                 <Image 
                     style = {styles.image}
+                    fadeDuration = {3000}
                     // used for local images
                     //source = {require('../assets/img/success.png')}
                     // used for network images
@@ -54,8 +56,10 @@ const GameOverScreen = props => {
                 />
             </View>
             
-            <BodyText> Number of Guess Attempts: {props.guessAttempts}</BodyText>
-            <BodyText> User's number was {props.userNumber} </BodyText>
+            <View style = {styles.resultContainer}>
+                <BodyText> Number of Guess Attempts: <Text style = {styles.highlight}> {props.guessAttempts} </Text></BodyText>
+                <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
+            </View>
 
             <Button title = 'Play again' onPress = {props.startGameHandler} />
         </View>
@@ -87,9 +91,22 @@ const styles = StyleSheet.create({
     image: {
         height: '100%',
         width: '100%',
+    },
+    resultContainer : {
+        marginHorizontal: 30,
+        marginVertical: 15,
+    },
+
+    highlight: {
+        color: Colors.primary,
+        fontFamily: 'atures900',
+    },
+
+    userNumberStyle: {
+        color: Colors.numColor,
+        fontFamily: 'atures700',
     
     }
-
 })
 
 export default GameOverScreen;
