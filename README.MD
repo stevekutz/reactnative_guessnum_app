@@ -1204,7 +1204,7 @@
     export default GameOverScreen;
     ~~~
 
-### Adding Images
+### Adding Images to GameOverSCreen component
 
 1) Create assets/img folder and add some png files
 
@@ -1278,6 +1278,7 @@
     - `Text` components can be nested and children will inherit styles of parent. Recall that `Text` components do NOT use `Flexbox` while `View` components do
 
         ~~~ js
+        // GameOverScreen.js
         ... 
         <BodyText> Number of Guess Attempts: <Text style = {styles.highlight}> {props.guessAttempts} </Text></BodyText>
         <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
@@ -1322,6 +1323,7 @@
 6) Build a custom button
 
     ~~~ js
+    // StartButton.js
     import React from 'react';
     import {Text, View, TouchableOpacity, StylSheet, TouchableWithoutFeedback} from 'react-native';
     import Colors from '../constants/colors';
@@ -1330,7 +1332,7 @@
     const StartButton = (props) => {
 
         return (
-            <TouchableOpacity onPress = {()=> {}}>
+            <TouchableOpacity onPress = {props.onPress}>
                 <View style = {styles.button}>
                     <Text style = {styles.buttonText}> {props.children} </Text>
                 </View>
@@ -1359,3 +1361,31 @@
     export default StartButton;
 
     ~~~
+
+7) Use custom StartButton within `StartGameScreen` component
+
+    ~~~ js
+    // StartGameScreen.js
+    ...
+    import StartButton from '../components/StartButton';
+    ...
+    ~~~
+
+    - replace `Button` with custom button `StartButton`
+        - before
+            ~~~ js 
+            ...
+                <Button 
+                    title = 'Start Game ?'
+                    onPress = {() => props.startGameHandler(confirmedVal)}
+                />
+            ...
+            ~~~
+
+        - after
+        ...
+            <StartButton 
+                onPress = {() => props.startGameHandler(confirmedVal)}>
+            Start Game ? </StartButton> 
+        ...
+            ~~~

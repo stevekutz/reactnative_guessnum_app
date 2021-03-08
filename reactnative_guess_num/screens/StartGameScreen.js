@@ -7,7 +7,7 @@ import Colors from '../constants/colors';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
 import BodyText from '../components/BodyText';
-
+import StartButton from '../components/StartButton';
 
 const StartGameScreen = props => {
 
@@ -95,10 +95,10 @@ const StartGameScreen = props => {
                             {/* <NumberContainer>{numberMessage}</NumberContainer> */}
                             <NumberContainer> {confirmedVal} </NumberContainer>
                             <Text> chosen </Text>
-                            <Button 
-                                title = 'Start Game ?'
-                                onPress = {() => props.startGameHandler(confirmedVal)}
-                            />
+                            <StartButton 
+                                onPress = {() => props.startGameHandler(confirmedVal)}>
+                            Start Game ? </StartButton> 
+                
                         
                         </Card>
                     : 

@@ -44,7 +44,7 @@ const GameOverScreen = props => {
             <View style = {styles.imageContainer}>
                 <Image 
                     style = {styles.image}
-                    fadeDuration = {3000}
+                    // fadeDuration = {3000}
                     // used for local images
                     //source = {require('../assets/img/success.png')}
                     // used for network images

@@ -4,4 +4,5 @@ export default {
     borderNumContainer: 'dodgerblue',
     numColor: 'rebeccapurple',
     startButton: '#589777',
+    borderGrey: '#C0CDC6',
 }
