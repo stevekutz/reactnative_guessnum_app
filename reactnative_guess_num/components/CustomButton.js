@@ -3,12 +3,12 @@ import {Text, View, TouchableOpacity, StyleSheet, TouchableWithoutFeedback} from
 import Colors from '../constants/colors';
 
 
-const StartButton = (props) => {
+const CustomButton = (props) => {
 
     return (
         <TouchableOpacity activeOpacity = {0.7}  onPress = {props.onPress}>
-            <View style = {styles.button}>
-                <Text style = {styles.buttonText}> {props.children} </Text>
+            <View style = {{...styles.button, ...props.style}}>
+                <Text style = {{...styles.buttonText, ...props.style}}> {props.children} </Text>
             </View>
         
         </TouchableOpacity>
@@ -19,11 +19,12 @@ const StartButton = (props) => {
 
 const styles = StyleSheet.create({
     button: {
+        // default colors, override with props where used
         borderWidth: 5,
         borderColor: Colors.borderGrey,
         backgroundColor: Colors.startButton,
-        paddingVertical: 14,
-        paddingHorizontal: 26,
+        paddingVertical: 10,
+        paddingHorizontal: 4,
         borderRadius: 20,
         
     },
@@ -31,9 +32,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'open-sans', 
         fontSize: 18,
+        textAlign: 'center',
     },
 
 
 });
 
-export default StartButton;
+export default CustomButton;

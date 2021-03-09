@@ -1204,7 +1204,7 @@
     export default GameOverScreen;
     ~~~
 
-### Adding Images to GameOverSCreen component
+### Adding Images to GameOverScreen component
 
 1) Create assets/img folder and add some png files
 
@@ -1329,7 +1329,7 @@
     import Colors from '../constants/colors';
 
 
-    const StartButton = (props) => {
+    const CustomButton = (props) => {
 
         return (
             <TouchableOpacity onPress = {props.onPress}>
@@ -1358,20 +1358,21 @@
 
     });
 
-    export default StartButton;
+    export default CustomButton;
 
     ~~~
 
-7) Use custom StartButton within `StartGameScreen` component
+7) Use custom CustomButton within `StartGameScreen` component
 
     ~~~ js
     // StartGameScreen.js
     ...
-    import StartButton from '../components/StartButton';
+    import StartButton from '../components/CustomButton';
     ...
     ~~~
 
-    - replace `Button` with custom button `StartButton`
+    - replace `Button` with `CustomButton`
+    - the `title` prop is removed and opening/closing tags are used to enclose the button text
         - before
             ~~~ js 
             ...
@@ -1384,8 +1385,26 @@
 
         - after
         ...
-            <StartButton 
+            <CustomButton 
                 onPress = {() => props.startGameHandler(confirmedVal)}>
-            Start Game ? </StartButton> 
+            Start Game ? </CustomButton> 
         ...
             ~~~
+
+8) Use custom button within `GameOverScreen` and override style settings
+
+    - import custom button
+
+    ~~~ js
+
+    ~~~
+
+
+   - before:
+       ~~~ js
+       <Button title = 'Play again' onPress = {props.startGameHandler} />
+       ~~~
+
+    - after:
+    - 
+

@@ -3,6 +3,7 @@ import {Text, View, Button, Card, Image, StyleSheet} from 'react-native';
 import BodyText from '../components/BodyText';
 import DefaultStyles from '../constants/default-styles';
 import Colors from '../constants/colors';
+import CustomButton from '../components/CustomButton';
 
 const GameOverScreen = props => {
 
@@ -61,7 +62,9 @@ const GameOverScreen = props => {
                 <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
             </View>
 
-            <Button title = 'Play again' onPress = {props.startGameHandler} />
+            <CustomButton
+                onPress = {props.startGameHandler}>
+            Play again ? </CustomButton>
         </View>
     )
 }

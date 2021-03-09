@@ -7,7 +7,7 @@ import Colors from '../constants/colors';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
 import BodyText from '../components/BodyText';
-import StartButton from '../components/StartButton';
+import CustomButton from '../components/CustomButton';
 
 const StartGameScreen = props => {
 
@@ -73,17 +73,20 @@ const StartGameScreen = props => {
                         />
                         <View style = {styles.buttonContainer}>
                             <View style = {styles.buttonStyle}>
-                                <Button 
-                                    title = 'Reset' 
+                                <CustomButton 
+                                    style = {styles.reset} 
                                     color = {Colors.primary} 
-                                    onPress = {resetHandler} />                        
+                                    onPress = {resetHandler} 
+                                > Reset </CustomButton>                        
                             </View>
                             <View style = {styles.buttonStyle}>
-                                <Button 
-                                    title = 'Confirm' 
-                                    color = {Colors.accent} 
+                                <CustomButton 
+                                    // title = 'Confirm' 
+                                    style = {styles.confirm}
+                                    color = {Colors.confirm} 
                                     onPress = {confirmHandler} 
-                                />
+                                > Confirm </CustomButton>
+                            
                             </View> 
                         </View>
                 </Card>
@@ -95,9 +98,10 @@ const StartGameScreen = props => {
                             {/* <NumberContainer>{numberMessage}</NumberContainer> */}
                             <NumberContainer> {confirmedVal} </NumberContainer>
                             <Text> chosen </Text>
-                            <StartButton 
+                            <CustomButton 
+                                
                                 onPress = {() => props.startGameHandler(confirmedVal)}>
-                            Start Game ? </StartButton> 
+                            Start Game ? </CustomButton> 
                 
                         
                         </Card>
@@ -162,6 +166,21 @@ const styles = StyleSheet.create({
         width: '50%',
         
     },
+
+    reset: {
+        borderColor: Colors.borderLightGreen,
+        backgroundColor: '#2A643E',
+        fontFamily: 'nasalization-rg',
+    
+    },
+
+    confirm: {
+        borderColor: Colors.borderLightBlue,
+        backgroundColor: '#28599E',
+        fontFamily: 'nasalization-rg',
+    }, 
+
+
 
     input: {
         width: '20%',
