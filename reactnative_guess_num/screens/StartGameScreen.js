@@ -72,14 +72,14 @@ const StartGameScreen = props => {
                             value = {numVal}
                         />
                         <View style = {styles.buttonContainer}>
-                            <View style = {styles.buttonStyle}>
+
                                 <CustomButton 
                                     style = {styles.reset} 
                                     color = {Colors.primary} 
                                     onPress = {resetHandler} 
                                 > Reset </CustomButton>                        
-                            </View>
-                            <View style = {styles.buttonStyle}>
+
+
                                 <CustomButton 
                                     // title = 'Confirm' 
                                     style = {styles.confirm}
@@ -87,11 +87,11 @@ const StartGameScreen = props => {
                                     onPress = {confirmHandler} 
                                 > Confirm </CustomButton>
                             
-                            </View> 
+
                         </View>
                 </Card>
 
-                <View>
+                <View style = {styles.summaryView}>
                 { confirmed  
                     ? 
                         <Card style = {styles.summaryContainer}>
@@ -99,7 +99,7 @@ const StartGameScreen = props => {
                             <NumberContainer> {confirmedVal} </NumberContainer>
                             <Text> chosen </Text>
                             <CustomButton 
-                                
+                                style = {styles.start}
                                 onPress = {() => props.startGameHandler(confirmedVal)}>
                             Start Game ? </CustomButton> 
                 
@@ -155,15 +155,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'blue',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         // width: 50,
         // display: 'flex',
         // justifyContent: 'space-between',
-        // paddingHorizontal: 1,
+        paddingHorizontal: 6,
         // margin: 5,
 
         },
     buttonStyle: {
-        borderWidth: 4,
+        borderWidth: 2,
         borderColor: 'pink',
         width: 150,
         paddingHorizontal: 10,
@@ -183,7 +184,11 @@ const styles = StyleSheet.create({
         fontFamily: 'nasalization-rg',
     }, 
 
-
+    start: {
+        borderColor: Colors.borderGrey,
+        backgroundColor: 'seagreen',
+        width: '90%',
+    },
 
     input: {
         width: '20%',
@@ -195,7 +200,16 @@ const styles = StyleSheet.create({
 
     },
 
+    summaryView: {
+        borderWidth: 2,
+        borderColor: 'green',
+        width: '80%',
+    },
+
     summaryContainer: {
+        borderWidth: 1,
+        borderColor: 'orange',
+        // width: '100%',
         margin: 40,
         alignItems: 'center',
     }

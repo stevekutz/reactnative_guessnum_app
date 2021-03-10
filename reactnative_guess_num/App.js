@@ -10,8 +10,6 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
 
-
-
 const fetchFonts = async () => {
     
     await Font.loadAsync({
@@ -33,7 +31,6 @@ const fetchFonts = async () => {
         'Raleway-Regular' : require('./assets/fonts/Raleway-Regular.ttf'),
         'Raleway-SemiBold' : require('./assets/fonts/Raleway-SemiBold.ttf'),
         'Raleway-Thin' : require('./assets/fonts/Raleway-Thin.ttf'),
-
     });
 
 }

@@ -7,6 +7,8 @@ import CustomButton from '../components/CustomButton';
 import DefaultStyles from '../constants/default-styles';
 import {Entypo} from '@expo/vector-icons';
 
+
+
 import Colors from '../constants/colors.js';
 
 // use function outside to not require re-render and improve performance
@@ -107,7 +109,11 @@ const GameScreen = props => {
                 <CustomButton
                     style = {styles.higherStyle}
                     onPress = {() => nextGuessHandler('higher')}
-                ><Entypo name = 'arrow-bold-up' size = {20} color = 'white' />Higher
+                ><Entypo 
+                    iconStyle = {{ marginRight: '100' }}
+                    name = 'arrow-bold-up' 
+                    size = {20} 
+                    color = 'white' />Higher
                  <Entypo name = 'arrow-bold-up' size = {20} color = 'white' />
                 </CustomButton>
 
