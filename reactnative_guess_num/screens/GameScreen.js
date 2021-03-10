@@ -5,6 +5,7 @@ import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import DefaultStyles from '../constants/default-styles';
+import {Entypo} from '@expo/vector-icons';
 
 import Colors from '../constants/colors.js';
 
@@ -97,13 +98,18 @@ const GameScreen = props => {
                 <CustomButton 
                     style = {styles.lowerStyle}
                     onPress = {() => nextGuessHandler('lower')}
-                > Lower </CustomButton>
+                    
+                ><Entypo name = 'arrow-bold-up' size = {20} color = 'white' />Lower
+                 <Entypo name = 'arrow-bold-down' size = {20} color = 'white' /> 
+                </CustomButton>
 
                 {/* <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} /> */}
                 <CustomButton
                     style = {styles.higherStyle}
                     onPress = {() => nextGuessHandler('higher')}
-                > Higher </CustomButton>
+                ><Entypo name = 'arrow-bold-up' size = {20} color = 'white' />Higher
+                 <Entypo name = 'arrow-bold-up' size = {20} color = 'white' />
+                </CustomButton>
 
             
             </Card>
@@ -128,8 +134,8 @@ const styles = StyleSheet.create({
         margin: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '80%',
-        maxWidth: '85%', 
+        width: '90%',
+        maxWidth: '95%', 
     
     },
     lowerStyle: {
@@ -141,11 +147,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.borderLightGrey,
         backgroundColor: Colors.backgroundLightPink,
         fontFamily: 'Raleway-SemiBold',
-    }
-
-
-
-
+    },
 
 })
 
