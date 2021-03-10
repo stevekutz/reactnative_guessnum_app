@@ -60,7 +60,7 @@ const StartGameScreen = props => {
                 <Text style = {styles.title} > Start a New Game </Text>
                 <Card style = {styles.inputContainer}>
                         {/* <Text> Enter a number </Text>  */}
-                        <BodyText> Enter a Number !! </BodyText>
+                        <BodyText> Enter a Number ! </BodyText>
                         <Input 
                             style = {styles.input} 
                             blurOnSubmit 
@@ -155,16 +155,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'blue',
         flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
-        paddingHorizontal: 15,
+        // width: 50,
+        // display: 'flex',
+        // justifyContent: 'space-between',
+        // paddingHorizontal: 1,
+        // margin: 5,
 
         },
     buttonStyle: {
         borderWidth: 4,
         borderColor: 'pink',
-        width: '50%',
-        
+        width: 150,
+        paddingHorizontal: 10,
+        textAlign: 'center',
     },
 
     reset: {

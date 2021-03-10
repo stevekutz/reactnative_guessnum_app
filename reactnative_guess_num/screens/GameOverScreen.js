@@ -46,10 +46,10 @@ const GameOverScreen = props => {
                 <Image 
                     style = {styles.image}
                     // fadeDuration = {3000}
-                    // used for local images
-                    //source = {require('../assets/img/success.png')}
-                    // used for network images
-                    source = {{uri: 'https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg'}}
+                        // used for local images
+                    source = {require('../assets/img/success.png')}
+                        // used for network images
+                    // source = {{uri: 'https://now.northropgrumman.com/wp-content/uploads/2017/11/11.07.17_mt_everest.jpg'}}
                     resizeMode = "cover"
 
                     // onLoad = {console.log("LOADED")}

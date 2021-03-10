@@ -3,7 +3,10 @@ import {Button, Text, View, StyleSheet, Alert} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import CustomButton from '../components/CustomButton';
 import DefaultStyles from '../constants/default-styles';
+
+import Colors from '../constants/colors.js';
 
 // use function outside to not require re-render and improve performance
 // uses recursion to call itself from within
@@ -89,10 +92,19 @@ const GameScreen = props => {
             <Text style = {DefaultStyles.bodyText}> Computer guessed number </Text>
             <NumberContainer> {currentGuess} </NumberContainer>
             <Card style = {styles.buttonContainer}>
-                <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} />
-                {/* <Button title = 'Lower2' onPress = {() => nextGuessHandler('lower')} />  */}
-                
-                <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} />
+                {/* <Button title = 'Lower' onPress = {nextGuessHandler.bind(this, 'lower')} /> */}
+                {/* <Button title = 'Lower2' onPress = {() => nextGuessHandler('lower')} /> */}
+                <CustomButton 
+                    style = {styles.lowerStyle}
+                    onPress = {() => nextGuessHandler('lower')}
+                > Lower </CustomButton>
+
+                {/* <Button title = 'Higher' onPress = {nextGuessHandler.bind(this, 'higher')} /> */}
+                <CustomButton
+                    style = {styles.higherStyle}
+                    onPress = {() => nextGuessHandler('higher')}
+                > Higher </CustomButton>
+
             
             </Card>
         </View>    
@@ -119,7 +131,19 @@ const styles = StyleSheet.create({
         width: '80%',
         maxWidth: '85%', 
     
+    },
+    lowerStyle: {
+        borderColor: Colors.borderLightGrey,
+        backgroundColor: Colors.backgroundLightBlue,
+        fontFamily: 'Raleway-SemiBold',
+    },
+    higherStyle: {
+        borderColor: Colors.borderLightGrey,
+        backgroundColor: Colors.backgroundLightPink,
+        fontFamily: 'Raleway-SemiBold',
     }
+
+
 
 
 

@@ -8,4 +8,7 @@ export default {
     confirm: '#0A5B33',
     borderLightBlue: '#5B97EA',
     borderLightGreen: '#39975A',
+    borderLightGrey: '#C9D3D2',
+    backgroundLightBlue: '#0596E4',
+    backgroundLightPink: '#F31BCF',
 }

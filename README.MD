@@ -4,7 +4,7 @@
 
 	- this behaves as a `wrapper` around your `React Native App`
 	- `Expo` is a third-party service that provides a convenient development workflow to reduce the complexity of implementing `React Native` features from scratch
-	- `Expo` limits the full control available in the `React Native` development environments available in `Xcode` and `Android Studio`
+	- `Expo` limits the full control available in the `React Native` development environments provided by `Xcode` and `Android Studio`
 
 		~~~ bash
 		npm install expo-cli --global
@@ -42,7 +42,7 @@
     - under Configure-SDK Manager, select several Android SDK Platform packages
     - under Configure-AVD Manager, select the `play` button on one of the installed `Virtual Devices`
 
-  	- Launch the iPhone simulator by either:
+  	- Launch the Android simulator by either:
         - select `Run on Android simulator` from the `Expo client` browser window on port `http://localhost:19002/`
         - pressing `a` from the terminal window after starting project
 
@@ -601,7 +601,7 @@
 
 12) Setup GameScreen component
 
-    - `useRef` used to allows variables to persist between component re-renders
+    - `useRef` is used to allow variables to persist between component re-renders
 
         ~~~ js
         // GameScreen.js
@@ -1391,7 +1391,7 @@
         ...
             ~~~
 
-8) Use custom button within `GameOverScreen` and override style settings
+8) Use CustomButton within `GameOverScreen` and override style settings
 
     - import custom button
 

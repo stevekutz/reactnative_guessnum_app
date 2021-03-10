@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
-// import { AppLoading } from 'expo'; // prolongss default loading of App screen until a particular task is done
+// import { AppLoading } from 'expo'; // prolongs default loading of App screen until a particular task is done
 import AppLoading from 'expo-app-loading';
 
 import Header from './components/Header';
@@ -33,11 +33,6 @@ const fetchFonts = async () => {
         'Raleway-Regular' : require('./assets/fonts/Raleway-Regular.ttf'),
         'Raleway-SemiBold' : require('./assets/fonts/Raleway-SemiBold.ttf'),
         'Raleway-Thin' : require('./assets/fonts/Raleway-Thin.ttf'),
-
-
-
-
-
 
     });
 
