@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
+// import { useFonts } from 'expo-font';
 // import { AppLoading } from 'expo'; // prolongs default loading of App screen until a particular task is done
 import AppLoading from 'expo-app-loading';
 
@@ -10,28 +11,34 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
 
+const addedFonts = {
+    'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
+    'atures300' : require('./assets/fonts/Atures-300_PERSONAL_USE.ttf'),
+    'atures500' : require('./assets/fonts/Atures-500_PERSONAL_USE.ttf'),
+    'atures700' : require('./assets/fonts/Atures-700_PERSONAL_USE.ttf'),
+    'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
+    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
+    'open-sans' : require('./assets/fonts/OpenSans-Regular.ttf'),
+    'nasalization-rg' : require('./assets/fonts/nasalization-rg.ttf'),
+    'Raleway-Bold' : require('./assets/fonts/Raleway-Bold.ttf'),
+    'Raleway-ExtraBold' : require('./assets/fonts/Raleway-ExtraBold.ttf'),
+    'Raleway-ExtraLight' : require('./assets/fonts/Raleway-ExtraLight.ttf'),
+    'Raleway-Heavy' : require('./assets/fonts/Raleway-Heavy.ttf'),
+    'Raleway-Light' : require('./assets/fonts/Raleway-Light.ttf'),
+    'Raleway-Medium' : require('./assets/fonts/Raleway-Medium.ttf'),
+    'Raleway-Regular' : require('./assets/fonts/Raleway-Regular.ttf'),
+    'Raleway-SemiBold' : require('./assets/fonts/Raleway-SemiBold.ttf'),
+    'Raleway-Thin' : require('./assets/fonts/Raleway-Thin.ttf'),
+
+}
+
+
 const fetchFonts = async () => {
     
-    await Font.loadAsync({
+    await Font.loadAsync(
     // return Font.loadAsync({   // returns a Promise
-        'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),
-        'atures300' : require('./assets/fonts/Atures-300_PERSONAL_USE.ttf'),
-        'atures500' : require('./assets/fonts/Atures-500_PERSONAL_USE.ttf'),
-        'atures700' : require('./assets/fonts/Atures-700_PERSONAL_USE.ttf'),
-        'atures900' : require('./assets/fonts/Atures-900_PERSONAL_USE.ttf'),  // bolder
-        'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
-        'open-sans' : require('./assets/fonts/OpenSans-Regular.ttf'),
-        'nasalization-rg' : require('./assets/fonts/nasalization-rg.ttf'),
-        'Raleway-Bold' : require('./assets/fonts/Raleway-Bold.ttf'),
-        'Raleway-ExtraBold' : require('./assets/fonts/Raleway-ExtraBold.ttf'),
-        'Raleway-ExtraLight' : require('./assets/fonts/Raleway-ExtraLight.ttf'),
-        'Raleway-Heavy' : require('./assets/fonts/Raleway-Heavy.ttf'),
-        'Raleway-Light' : require('./assets/fonts/Raleway-Light.ttf'),
-        'Raleway-Medium' : require('./assets/fonts/Raleway-Medium.ttf'),
-        'Raleway-Regular' : require('./assets/fonts/Raleway-Regular.ttf'),
-        'Raleway-SemiBold' : require('./assets/fonts/Raleway-SemiBold.ttf'),
-        'Raleway-Thin' : require('./assets/fonts/Raleway-Thin.ttf'),
-    });
+        addedFonts
+    );
 
 }
 
@@ -42,8 +49,10 @@ export default function App() {
     const [userNumber, setUserNumber] = useState();
     const [guessAttempts, setGuessAttempts] =  useState(0);
     const [dataLoaded, setDataLoaded] = useState(false);
+    // const [fetchFonts] = useFonts( addedFonts )
 
     if (!dataLoaded) {
+    // if ( fetchFonts ) {
         return (
             <AppLoading 
                 startAsync = {fetchFonts} 
@@ -53,8 +62,7 @@ export default function App() {
         
         )
         
-    }
-
+    } 
 
     // currentGuess from GameScreen component should be passed into handler
     const startGameHandler = (selectedNumber) => {
@@ -98,12 +106,16 @@ export default function App() {
                 guessAttempts = {guessAttempts}
                 userNumber = {userNumber}
                 startGameHandler = {startGameHandler}
-             />
+            />
         )
         
     }
 
+
     return (
+
+    
+
         <View style={styles.screen}>
             <Header title = "Guess a Number" />
             
@@ -111,7 +123,42 @@ export default function App() {
                     
         </View>
     );
-}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+
+
 
 const styles = StyleSheet.create({
   screen: {

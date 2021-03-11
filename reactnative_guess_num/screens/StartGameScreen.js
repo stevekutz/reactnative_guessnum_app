@@ -72,7 +72,7 @@ const StartGameScreen = props => {
                             value = {numVal}
                         />
                         <View style = {styles.buttonContainer}>
-
+                            
                                 <CustomButton 
                                     style = {styles.reset} 
                                     color = {Colors.primary} 
