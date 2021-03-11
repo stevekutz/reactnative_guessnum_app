@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
-// import { useFonts } from 'expo-font';
+import { useFonts } from 'expo-font';
 // import { AppLoading } from 'expo'; // prolongs default loading of App screen until a particular task is done
 import AppLoading from 'expo-app-loading';
 
@@ -33,14 +33,14 @@ const addedFonts = {
 }
 
 
-const fetchFonts = async () => {
+// const fetchFonts = async () => {
     
-    await Font.loadAsync(
-    // return Font.loadAsync({   // returns a Promise
-        addedFonts
-    );
+//     await Font.loadAsync(
+//     // return Font.loadAsync({   // returns a Promise
+//         addedFonts
+//     );
 
-}
+// }
 
 
 export default function App() {
@@ -48,16 +48,16 @@ export default function App() {
     // while userNumber exists, GameScreen component should be active , NOT ''
     const [userNumber, setUserNumber] = useState();
     const [guessAttempts, setGuessAttempts] =  useState(0);
-    const [dataLoaded, setDataLoaded] = useState(false);
-    // const [fetchFonts] = useFonts( addedFonts )
+    // const [dataLoaded, setDataLoaded] = useState(false);
+    let [fetchFonts] = useFonts( addedFonts )
 
-    if (!dataLoaded) {
-    // if ( fetchFonts ) {
+    // if (!dataLoaded) {
+    if ( !fetchFonts ) {
         return (
             <AppLoading 
-                startAsync = {fetchFonts} 
-                onFinish = {() => setDataLoaded(true)}
-                onError = {() => console.log(err)}
+                // startAsync = {fetchFonts} 
+                // onFinish = {() => setDataLoaded(true)}
+                // onError = {() => console.log(err)}
             />
         
         )

@@ -20,7 +20,7 @@ const CustomButton = (props) => {
 const styles = StyleSheet.create({
     button: {
         // default colors, override with props where used
-        width: 120,
+        width: 135,
         borderWidth: 5,
         borderColor: Colors.borderGrey,
         backgroundColor: Colors.startButton,

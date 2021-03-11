@@ -101,7 +101,7 @@ const GameScreen = props => {
                     style = {styles.lowerStyle}
                     onPress = {() => nextGuessHandler('lower')}
                     
-                ><Entypo name = 'arrow-bold-up' size = {20} color = 'white' />Lower
+                ><Entypo name = 'arrow-bold-down' size = {20} color = 'white' />Lower
                  <Entypo name = 'arrow-bold-down' size = {20} color = 'white' /> 
                 </CustomButton>
 
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         margin: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%',
+        width: '95%',
         maxWidth: '95%', 
     
     },
