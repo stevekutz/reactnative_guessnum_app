@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Button, Text, View, StyleSheet, Alert} from 'react-native';
+import {Button, Text, View, StyleSheet, Alert, ScrollView} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -36,11 +36,11 @@ const generateRandomBetween = (min, max, excludeVal) => {
 
 const GameScreen = props => {
 
+
+
     // destructure props
     const {userNumber, gameOverHandler} = props;
 
-    // generate number 
-    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userNumber));
 
 
     // useRef creates obj that can be bound to inputs
@@ -51,6 +51,11 @@ const GameScreen = props => {
     // define localState to count guesses within GameScreen component
     const [guessCount, setGuessCount] = useState(0);
 
+    // track current & past guesses
+        // generate number 
+    const initialGuess = generateRandomBetween(1, 100, props.userChoice);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [pastGuesses, setPastGuesses] = useState([initialGuess]);
 
     // useEffect runs AFTER component re-renders
     useEffect( () => {
@@ -80,12 +85,13 @@ const GameScreen = props => {
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
 
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
         setGuessCount( guessVal => guessVal + 1)
+        setPastGuesses(guessValHistory => [, ...guessValHistory])
     }
 
 
@@ -116,7 +122,13 @@ const GameScreen = props => {
                     color = 'white' />Higher
                  <Entypo name = 'arrow-bold-up' size = {20} color = 'white' />
                 </CustomButton>
-
+                <ScrollView>
+                    {pastGuesses.map(guess => (
+                        <View key = {guess}>
+                            <Text>{guess}</Text>
+                        </View>
+                    ))}
+                </ScrollView>
             
             </Card>
         </View>    
