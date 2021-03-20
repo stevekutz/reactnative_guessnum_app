@@ -41,8 +41,6 @@ const GameScreen = props => {
     // destructure props
     const {userNumber, gameOverHandler} = props;
 
-
-
     // useRef creates obj that can be bound to inputs
     //  useRef allows values to persist throughout component re-renders
     const currentLow = useRef(1);
@@ -71,6 +69,8 @@ const GameScreen = props => {
 
     const nextGuessHandler = direction => {
 
+        let nextNumber;
+
         console.log( 'direction is ', direction );
 
         if (
@@ -85,13 +85,23 @@ const GameScreen = props => {
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess + 1;
+            currentLow.current = currentGuess;
         }
 
-        const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+        // nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+
+        do {
+            console.log("within DO LOOP");
+            nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+        } while (pastGuesses.includes(nextNumber))
+
+        console.log("nextNumber is ===> ", nextNumber);
+
+        // const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
         setGuessCount( guessVal => guessVal + 1)
-        setPastGuesses(guessValHistory => [, ...guessValHistory])
+        setPastGuesses(guessValHistory => [nextNumber, ...guessValHistory])
+        console.log("guessValHistory >>>>> ", pastGuesses);
     }
 
 
@@ -122,6 +132,8 @@ const GameScreen = props => {
                     color = 'white' />Higher
                  <Entypo name = 'arrow-bold-up' size = {20} color = 'white' />
                 </CustomButton>
+            
+            </Card>
                 <ScrollView>
                     {pastGuesses.map(guess => (
                         <View key = {guess}>
@@ -129,8 +141,6 @@ const GameScreen = props => {
                         </View>
                     ))}
                 </ScrollView>
-            
-            </Card>
         </View>    
     )
 }
