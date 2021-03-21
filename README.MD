@@ -1408,3 +1408,58 @@
     - after:
     - 
 
+### Improve Gameplay Logic
+
+1) Define hook to keep track of past guess values in an array and use length of array to show number of guess attempts passed into gameOverHandler
+
+    ~~~ js
+    const [pastGuesses, setPastGuesses] = useState([initialGuess]);
+
+    // useEffect runs AFTER component re-renders
+    useEffect( () => {
+
+    if (currentGuess === userNumber) {
+        // gameOverHandler(guessCount);       
+        gameOverHandler(pastGuesses.length)
+    }
+    // }, [currentGuess, gameOverHandler, userNumber]);
+    }, [currentGuess]);
+    ~~~
+
+2) Prevent repeat guess values and pass current guess value into array
+
+    ~~~ js
+    do {
+    console.log("within DO LOOP");
+    nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+    } while (pastGuesses.includes(nextNumber))
+
+    console.log("nextNumber is ===> ", nextNumber);
+
+    setCurrentGuess(nextNumber);
+    // setGuessCount( guessVal => guessVal + 1)
+    setPastGuesses(guessValHistory => [nextNumber, ...guessValHistory])
+    console.log("guessValHistory >>>>> ", pastGuesses);
+    ~~~
+
+3) Add `renderGuessesList` function to handle display of current guess values
+
+    ~~~ js
+    const renderGuessesList = (guessValue) => (
+    <View key = {guessValue} style = {styles.list}>
+        <Text> {guessValue} </Text>
+    </View>
+    )
+    ~~~
+
+4) Add `ScrollView` to map out guesses into `renderGuessesList` function 
+
+    ~~~ js
+        </Card>
+            <ScrollView>
+                {pastGuesses.map(guess => (
+                    renderGuessesList(guess)
+                ))}
+            </ScrollView>
+    </View>
+    ~~~

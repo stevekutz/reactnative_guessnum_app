@@ -36,7 +36,7 @@ const generateRandomBetween = (min, max, excludeVal) => {
 
 const GameScreen = props => {
 
-
+    let nextNumber;
 
     // destructure props
     const {userNumber, gameOverHandler} = props;
@@ -46,8 +46,8 @@ const GameScreen = props => {
     const currentLow = useRef(1);
     const currentHigh = useRef(100)
 
-    // define localState to count guesses within GameScreen component
-    const [guessCount, setGuessCount] = useState(0);
+    // // define localState to count guesses within GameScreen component
+    // const [guessCount, setGuessCount] = useState(0);
 
     // track current & past guesses
         // generate number 
@@ -58,18 +58,19 @@ const GameScreen = props => {
     // useEffect runs AFTER component re-renders
     useEffect( () => {
 
-        console.log("useEffect props.guessCount", guessCount);
-        console.log("guessCount ", guessCount);
+        // console.log("useEffect props.guessCount", guessCount);
+        // console.log("guessCount ", guessCount);
 
         if (currentGuess === userNumber) {
-            gameOverHandler(guessCount);       
+            // gameOverHandler(guessCount);       
+            gameOverHandler(pastGuesses.length)
         }
     // }, [currentGuess, gameOverHandler, userNumber]);
     }, [currentGuess]);
 
     const nextGuessHandler = direction => {
 
-        let nextNumber;
+        // let nextNumber;
 
         console.log( 'direction is ', direction );
 
@@ -88,8 +89,6 @@ const GameScreen = props => {
             currentLow.current = currentGuess;
         }
 
-        // nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
-
         do {
             console.log("within DO LOOP");
             nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
@@ -97,13 +96,17 @@ const GameScreen = props => {
 
         console.log("nextNumber is ===> ", nextNumber);
 
-        // const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
-        setGuessCount( guessVal => guessVal + 1)
+        // setGuessCount( guessVal => guessVal + 1)
         setPastGuesses(guessValHistory => [nextNumber, ...guessValHistory])
         console.log("guessValHistory >>>>> ", pastGuesses);
     }
 
+    const renderGuessesList = (guessValue) => (
+        <View key = {guessValue} style = {styles.list}>
+            <Text> {guessValue} </Text>
+        </View>
+    )
 
     return (
         <View style = {styles.screen}>
@@ -136,9 +139,7 @@ const GameScreen = props => {
             </Card>
                 <ScrollView>
                     {pastGuesses.map(guess => (
-                        <View key = {guess}>
-                            <Text>{guess}</Text>
-                        </View>
+                        renderGuessesList(guess)
                     ))}
                 </ScrollView>
         </View>    
@@ -176,6 +177,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.backgroundLightPink,
         fontFamily: 'Raleway-SemiBold',
     },
+
+    list: {
+        borderWidth: 1,
+        borderColor: Colors.backgroundLightBlue,
+    }
 
 })
 
