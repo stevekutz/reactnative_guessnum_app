@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Button, Text, View, StyleSheet, Alert, ScrollView} from 'react-native';
+import {Button, Text, View, StyleSheet, Alert, ScrollView, FlatList} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -54,6 +54,7 @@ const GameScreen = props => {
     const initialGuess = generateRandomBetween(1, 100, props.userChoice);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const [pastGuesses, setPastGuesses] = useState([initialGuess]);
+    const [pastGuessesStr, setpastGuessesStr] = useState([initialGuess.toString()])
 
     // useEffect runs AFTER component re-renders
     useEffect( () => {
@@ -99,6 +100,7 @@ const GameScreen = props => {
         setCurrentGuess(nextNumber);
         setGuessCount( guessVal => guessVal + 1)
         setPastGuesses(guessValHistory => [nextNumber, ...guessValHistory])
+        setpastGuessesStr(guessValHistory => [nextNumber.toString(), ...guessValHistory])
         console.log("guessValHistory >>>>> ", pastGuesses);
     }
 
@@ -106,6 +108,13 @@ const GameScreen = props => {
         <View key = {guessValue} style = {styles.listItem}>
             <BodyText> # {index + 1}</BodyText>
             <BodyText> {guessValue} </BodyText>
+        </View>
+    )
+
+    const renderGuessesListFlatList = (listLength, itemData) => (
+        <View style = {styles.listItem}>
+            <BodyText>  #{listLength - itemData.index}</BodyText>
+            <BodyText>{itemData.item}</BodyText>
         </View>
     )
 
@@ -139,11 +148,20 @@ const GameScreen = props => {
             
             </Card>
                 <View style = {styles.listContainer}>
+                    {/*
                     <ScrollView contentContainerStyle = {styles.list}>
                         {pastGuesses.map((guess, index) => (
                             renderGuessesList(guess, pastGuesses.length - index - 1)
                         ))}
                     </ScrollView>                
+                    */}
+                    <FlatList 
+                        keyExtractor = {(item) => item} 
+                        data = {pastGuessesStr} 
+                        renderItem = {renderGuessesListFlatList.bind(this,pastGuessesStr.length)}
+                        contentContainerStyle = {styles.list}
+                    />
+                    
                 </View>
         </View>    
     )
