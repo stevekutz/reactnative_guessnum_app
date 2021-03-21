@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import DefaultStyles from '../constants/default-styles';
 import {Entypo} from '@expo/vector-icons';
-
+import BodyText from '../components/BodyText';
 
 
 import Colors from '../constants/colors.js';
@@ -47,7 +47,7 @@ const GameScreen = props => {
     const currentHigh = useRef(100)
 
     // // define localState to count guesses within GameScreen component
-    // const [guessCount, setGuessCount] = useState(0);
+    const [guessCount, setGuessCount] = useState(0);
 
     // track current & past guesses
         // generate number 
@@ -97,14 +97,15 @@ const GameScreen = props => {
         console.log("nextNumber is ===> ", nextNumber);
 
         setCurrentGuess(nextNumber);
-        // setGuessCount( guessVal => guessVal + 1)
+        setGuessCount( guessVal => guessVal + 1)
         setPastGuesses(guessValHistory => [nextNumber, ...guessValHistory])
         console.log("guessValHistory >>>>> ", pastGuesses);
     }
 
-    const renderGuessesList = (guessValue) => (
-        <View key = {guessValue} style = {styles.list}>
-            <Text> {guessValue} </Text>
+    const renderGuessesList = (guessValue, index) => (
+        <View key = {guessValue} style = {styles.listItem}>
+            <BodyText> # {index + 1}</BodyText>
+            <BodyText> {guessValue} </BodyText>
         </View>
     )
 
@@ -138,8 +139,8 @@ const GameScreen = props => {
             
             </Card>
                 <ScrollView>
-                    {pastGuesses.map(guess => (
-                        renderGuessesList(guess)
+                    {pastGuesses.map((guess, index) => (
+                        renderGuessesList(guess, pastGuesses.length - index - 1)
                     ))}
                 </ScrollView>
         </View>    
@@ -178,9 +179,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway-SemiBold',
     },
 
-    list: {
+    listItem: {
         borderWidth: 1,
         borderColor: Colors.backgroundLightBlue,
+
+        flexDirection: 'row',
+        padding: 5,
+        marginVertical: 2,
+        justifyContent: 'space-between',
     }
 
 })

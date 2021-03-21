@@ -1445,21 +1445,38 @@
 3) Add `renderGuessesList` function to handle display of current guess values
 
     ~~~ js
-    const renderGuessesList = (guessValue) => (
-    <View key = {guessValue} style = {styles.list}>
-        <Text> {guessValue} </Text>
-    </View>
+    const renderGuessesList = (guessValue, index) => (
+        <View key = {guessValue} style = {styles.listItem}>
+            <BodyText> # {index + 1}</BodyText>
+            <BodyText> {guessValue} </BodyText>
+        </View>
     )
     ~~~
 
 4) Add `ScrollView` to map out guesses into `renderGuessesList` function 
 
+
+- since the most recent guess goes to index 0 and the first guess is the last item in the array, the argument passed into `renderGuessesList` is modified as `pastGuesses.length - index -1`
     ~~~ js
         </Card>
             <ScrollView>
-                {pastGuesses.map(guess => (
-                    renderGuessesList(guess)
+                {pastGuesses.map((guess, index) => (
+                    renderGuessesList(guess, pastGuesses.length - index -1)
                 ))}
             </ScrollView>
     </View>
+    ~~~
+
+5) Add some simple styling for the list items
+
+    ~~~ js
+    listItem: {
+    borderWidth: 1,
+    borderColor: Colors.backgroundLightBlue,
+
+    flexDirection: 'row',
+    padding: 5,
+    marginVertical: 2,
+    justifyContent: 'space-between',
+    }
     ~~~
