@@ -1467,17 +1467,28 @@
     </View>
     ~~~
 
-5) Add some simple styling for the list items
+5) Add some simple styling for the list & list item styles
 
     ~~~ js
-    listItem: {
-    borderWidth: 1,
-    borderColor: Colors.backgroundLightBlue,
+    list: {
+        borderWidth: 1,
+        borderColor:  'blue',
+        flexGrow: 1,
+        alignItems: 'center',
+        // maxHeight: 250,
+        justifyContent: 'flex-end'
+    
+    },
 
-    flexDirection: 'row',
-    padding: 5,
-    marginVertical: 2,
-    justifyContent: 'space-between',
+    listItem: {
+        borderWidth: 1,
+        borderColor: Colors.backgroundLightBlue,
+        
+        flexDirection: 'row',
+        padding: 5,
+        marginVertical: 12,
+        justifyContent: 'space-between',
+        width: '50%',
     }
     ~~~
 
@@ -1486,21 +1497,23 @@
 - scrolling on Android is only visible when list items exceed `viewport`
 
 - wrap entire `ScrollView` within a `View`
+- `ScrollView` must have a bounded height
+- use the `contentContainerStyle` prop to wrap ALL child views
 
     ~~~ js
-    <View style = {styles.list}>
-        <ScrollView>
-            {pastGuesses.map((guess, index) => (
-                renderGuessesList(guess, pastGuesses.length - index - 1)
-            ))}
-        </ScrollView>                
-    </View>
+        <View style = {styles.listContainer}>
+            <ScrollView contentContainerStyle = {styles.list}>
+                {pastGuesses.map((guess, index) => (
+                    renderGuessesList(guess, pastGuesses.length - index - 1)
+                ))}
+            </ScrollView>                
+        </View> 
     ~~~
 
-- add `list` style with flex: 1 to take up available space and invoke scrolling ability
+- add `listContainer` style with `flex: 1` to take up available space and invoke scrolling ability
 
     ~~~ js
-        list: {
+        listContainer: {
             flex: 1,
         },
     ~~~

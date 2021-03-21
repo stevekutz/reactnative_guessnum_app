@@ -138,8 +138,8 @@ const GameScreen = props => {
                 </CustomButton>
             
             </Card>
-                <View style = {styles.list}>
-                    <ScrollView>
+                <View style = {styles.listContainer}>
+                    <ScrollView contentContainerStyle = {styles.list}>
                         {pastGuesses.map((guess, index) => (
                             renderGuessesList(guess, pastGuesses.length - index - 1)
                         ))}
@@ -151,10 +151,10 @@ const GameScreen = props => {
 
 const styles = StyleSheet.create({
     screen: {
-        borderWidth: 2,
-        borderColor: 'darkred',
+        // borderWidth: 2,
+        // borderColor: 'darkred',
         
-        margin: 20,
+        // margin: 20,
         flex: 1,
         padding: 8,
         alignItems: 'center',
@@ -163,10 +163,12 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         
-        margin: 20,
+        marginTop: 20,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '95%',
+        // justifyContent: 'space-between',
+        justifyContent: 'space-around',
+        // width: '95%',
+        width: 400,
         maxWidth: '95%', 
     
     },
@@ -181,18 +183,30 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway-SemiBold',
     },
 
-    list: {
+    listContainer: {
         flex: 1,
+        width: '80%',
+    },
+
+    list: {
+        borderWidth: 1,
+        borderColor:  'blue',
+        flexGrow: 1,
+        alignItems: 'center',
+        // maxHeight: 250,
+        justifyContent: 'flex-end'
+    
     },
 
     listItem: {
         borderWidth: 1,
         borderColor: Colors.backgroundLightBlue,
-
+        
         flexDirection: 'row',
-        padding: 35,
-        marginVertical: 2,
+        padding: 5,
+        marginVertical: 12,
         justifyContent: 'space-between',
+        width: '50%',
     }
 
 })
