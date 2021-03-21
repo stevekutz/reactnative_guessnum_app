@@ -1480,3 +1480,29 @@
     justifyContent: 'space-between',
     }
     ~~~
+
+6) Add scrolling for Android
+
+- scrolling on Android is only visible when list items exceed `viewport`
+
+- wrap entire `ScrollView` within a `View`
+
+    ~~~ js
+    <View style = {styles.list}>
+        <ScrollView>
+            {pastGuesses.map((guess, index) => (
+                renderGuessesList(guess, pastGuesses.length - index - 1)
+            ))}
+        </ScrollView>                
+    </View>
+    ~~~
+
+- add `list` style with flex: 1 to take up available space and invoke scrolling ability
+
+    ~~~ js
+        list: {
+            flex: 1,
+        },
+    ~~~
+
+

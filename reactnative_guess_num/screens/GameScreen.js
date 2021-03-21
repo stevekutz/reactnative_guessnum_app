@@ -138,11 +138,13 @@ const GameScreen = props => {
                 </CustomButton>
             
             </Card>
-                <ScrollView>
-                    {pastGuesses.map((guess, index) => (
-                        renderGuessesList(guess, pastGuesses.length - index - 1)
-                    ))}
-                </ScrollView>
+                <View style = {styles.list}>
+                    <ScrollView>
+                        {pastGuesses.map((guess, index) => (
+                            renderGuessesList(guess, pastGuesses.length - index - 1)
+                        ))}
+                    </ScrollView>                
+                </View>
         </View>    
     )
 }
@@ -179,12 +181,16 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway-SemiBold',
     },
 
+    list: {
+        flex: 1,
+    },
+
     listItem: {
         borderWidth: 1,
         borderColor: Colors.backgroundLightBlue,
 
         flexDirection: 'row',
-        padding: 5,
+        padding: 35,
         marginVertical: 2,
         justifyContent: 'space-between',
     }
