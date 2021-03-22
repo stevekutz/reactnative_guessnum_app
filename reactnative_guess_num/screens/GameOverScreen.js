@@ -4,6 +4,14 @@ import BodyText from '../components/BodyText';
 import DefaultStyles from '../constants/default-styles';
 import Colors from '../constants/colors';
 import CustomButton from '../components/CustomButton';
+import { LineChart } from 'react-native-line-chart';
+
+const data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  datasets: [{
+    data: [ 20, 45, 28, 80, 99, 43 ]
+  }]
+}
 
 const GameOverScreen = props => {
 
@@ -61,6 +69,13 @@ const GameOverScreen = props => {
                 <BodyText> Number of Guess Attempts: <Text style = {styles.highlight}> {props.guessAttempts} </Text></BodyText>
                 <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
             </View>
+
+            <LineChart
+                data={data}
+                width={screenWidth}
+                height={220}
+                chartConfig={chartConfig}
+            />
 
             <CustomButton
                 onPress = {props.startGameHandler}>

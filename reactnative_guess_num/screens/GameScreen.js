@@ -63,8 +63,8 @@ const GameScreen = props => {
         // console.log("guessCount ", guessCount);
 
         if (currentGuess === userNumber) {
-            // gameOverHandler(guessCount);       
-            gameOverHandler(pastGuesses.length)
+            // gameOverHandler(guessCount);       34
+            gameOverHandler(pastGuesses)
         }
     // }, [currentGuess, gameOverHandler, userNumber]);
     }, [currentGuess]);

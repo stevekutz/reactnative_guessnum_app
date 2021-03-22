@@ -10713,6 +10713,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
+react-native-line-chart@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-line-chart/-/react-native-line-chart-1.0.4.tgz#4dbb8ea0370dcf959d5b6e84389b85e3ed84bbb9"
+  integrity sha512-6DBKRAcDwo0REWweUs7+OP/7kN9nVb3NuqnCvQZhu/OJSGMWCT3yX2R70qKYIDu+/VdUuyxaRN2/kN8kX/tRgQ==
+
 react-native-safe-area-context@3.1.9:
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.9.tgz#48864ea976b0fa57142a2cc523e1fd3314e7247e"

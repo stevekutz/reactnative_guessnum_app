@@ -79,7 +79,7 @@ export default function App() {
     }
 
     const gameOverHandler = (attemptCount) => {
-        setGuessAttempts(attemptCount)
+        setGuessAttempts(attemptCount.length)
     
     }
 
