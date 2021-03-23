@@ -9,7 +9,7 @@ import AppLoading from 'expo-app-loading';
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
-import GameOverScreen from './screens/GameOverScreen';
+import GameOverScreen from './screens/GameOverScreen'
 
 const addedFonts = {
     'atures100' : require('./assets/fonts/Atures-100_PERSONAL_USE.ttf'),

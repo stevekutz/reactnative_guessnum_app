@@ -1,10 +1,12 @@
 import React from 'react';
-import {Text, View, Button, Card, Image, StyleSheet} from 'react-native';
+import {Text, View, Button, Card, Image, StyleSheet, Dimensions} from 'react-native';
 import BodyText from '../components/BodyText';
 import DefaultStyles from '../constants/default-styles';
 import Colors from '../constants/colors';
 import CustomButton from '../components/CustomButton';
 import { LineChart } from 'react-native-line-chart';
+// import { Dimensions } from 'react-native';
+const screenWidth = Dimensions.get('window').width;
 
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -74,7 +76,30 @@ const GameOverScreen = props => {
                 data={data}
                 width={screenWidth}
                 height={220}
-                chartConfig={chartConfig}
+                count = {20}
+                chartConfig={{
+                    backgroundColor: 'white',
+                    backgroundGradientFrom: 'white',
+                    backgroundGradientTo: 'darkslategrey',
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
+                    style: {
+                        borderRadius: 16
+                    },
+                    propsForDots: {
+                        r: '6',
+                        strokewidth: '3',
+                        stroke: '#ffa726',
+
+                    }
+
+                }}
+                
+                    // bezier
+                    // style={{
+                    // marginVertical: 8,
+                    // borderRadius: 16
+                    // }}
             />
 
             <CustomButton
