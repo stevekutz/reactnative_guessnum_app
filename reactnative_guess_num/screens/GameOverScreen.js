@@ -17,6 +17,7 @@ const data = {
 
 const GameOverScreen = props => {
 
+    console.log(" GameOverScreen props $$$ ", props.data);
 
     const sizeInfo = async () => {
     
@@ -73,7 +74,8 @@ const GameOverScreen = props => {
             </View>
 
             <LineChart
-                data={data}
+                // data={data}
+                data = {props.data}
                 width={screenWidth}
                 height={220}
                 count = {20}

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import { useFonts } from 'expo-font';
+// import addedFonts from './assets/fonts/addedFonts';
 // import { AppLoading } from 'expo'; // prolongs default loading of App screen until a particular task is done
 import AppLoading from 'expo-app-loading';
 
@@ -42,6 +43,19 @@ const addedFonts = {
 
 // }
 
+// let data = {
+//   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+//   datasets: [{
+//     data: [ 20, 45, 28, 80, 99, 43 ]
+//   }]
+// }
+
+let data = {
+  labels: [],
+  datasets: [{
+    data: [  ]
+  }]
+}
 
 export default function App() {
 
@@ -49,6 +63,7 @@ export default function App() {
     const [userNumber, setUserNumber] = useState();
     const [guessAttempts, setGuessAttempts] =  useState(0);
     // const [dataLoaded, setDataLoaded] = useState(false);
+    // let [fetchFonts] = useFonts( addedFonts )
     let [fetchFonts] = useFonts( addedFonts )
 
     // if (!dataLoaded) {
@@ -63,6 +78,28 @@ export default function App() {
         )
         
     } 
+
+    const resetData = () => {
+        data = {
+            labels: [],
+            datasets: [{
+                data: [  ]
+            }]
+            }
+    }
+
+    const prepareData = (dataObj) => {
+
+        resetData();
+
+        let reversedArr = dataObj.reverse();
+        reversedArr.forEach((item, index) => {
+            data.labels.push(index)
+            data.datasets[0].data.push(item)
+        
+        })
+    
+    }
 
     // currentGuess from GameScreen component should be passed into handler
     const startGameHandler = (selectedNumber) => {
@@ -79,6 +116,8 @@ export default function App() {
     }
 
     const gameOverHandler = (attemptCount) => {
+        console.log("attemptCount #### ", attemptCount);
+        prepareData(attemptCount);    
         setGuessAttempts(attemptCount.length)
     
     }
@@ -106,6 +145,7 @@ export default function App() {
                 guessAttempts = {guessAttempts}
                 userNumber = {userNumber}
                 startGameHandler = {startGameHandler}
+                data = {data}
             />
         )
         
