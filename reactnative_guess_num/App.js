@@ -54,7 +54,8 @@ let data = {
   labels: [],
   datasets: [{
     data: [  ]
-  }]
+  }],
+  legend: ["Guesses"]
 }
 
 export default function App() {

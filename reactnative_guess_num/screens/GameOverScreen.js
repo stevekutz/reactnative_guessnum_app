@@ -4,16 +4,18 @@ import BodyText from '../components/BodyText';
 import DefaultStyles from '../constants/default-styles';
 import Colors from '../constants/colors';
 import CustomButton from '../components/CustomButton';
-import { LineChart } from 'react-native-line-chart';
+// import { LineChart } from 'react-native-line-chart';
+import { LineChart } from 'react-native-chart-kit';
+import * as Svg from 'react-native-svg';
 // import { Dimensions } from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 
-const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-  datasets: [{
-    data: [ 20, 45, 28, 80, 99, 43 ]
-  }]
-}
+// const data = {
+//   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+//   datasets: [{
+//     data: [ 20, 45, 28, 80, 99, 43 ]
+//   }]
+// }
 
 const GameOverScreen = props => {
 
@@ -73,26 +75,30 @@ const GameOverScreen = props => {
                 <BodyText> User's number was <Text style = {styles.userNumberStyle}> {props.userNumber} </Text> </BodyText>
             </View>
 
-            <LineChart
+            <LineChart 
                 // data={data}
+                style = {styles.chart}
                 data = {props.data}
-                width={screenWidth}
-                height={220}
+                width={screenWidth - 10}
+                height={250}
                 count = {20}
+                withDots = {true}
+                // yAxisLabel=""
                 chartConfig={{
                     backgroundColor: 'white',
-                    backgroundGradientFrom: 'white',
-                    backgroundGradientTo: 'darkslategrey',
+                    backgroundGradientFrom: 'black',
+                    backgroundGradientTo: 'black',
                     decimalPlaces: 0, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
+                    // color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    color: (opacity = 1) => `rgba(100, 255, 255, ${opacity})`,
                     style: {
-                        borderRadius: 16
+                        borderRadius: 12
                     },
+                    strokeWidth: 5,
                     propsForDots: {
                         r: '6',
-                        strokewidth: '3',
-                        stroke: '#ffa726',
-
+                        strokewidth: '13',
+                        stroke: 'red',
                     }
 
                 }}
@@ -151,6 +157,9 @@ const styles = StyleSheet.create({
         color: Colors.numColor,
         fontFamily: 'atures700',
     
+    },
+    chart: {
+        marginBottom: 10,
     }
 })
 
