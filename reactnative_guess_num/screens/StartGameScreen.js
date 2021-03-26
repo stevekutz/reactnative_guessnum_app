@@ -129,8 +129,9 @@ const styles = StyleSheet.create({
         // backgroundColor: 'white',
         // padding: 22,
         // borderRadius: 10,   
-        width: 300,
-        maxWidth: '80%',
+        width: '80%',
+        minWidth: 150,
+        // maxWidth: '80%',
         alignItems: 'center',
         // // shadow____   only works on iOS
         // shadowColor: 'black',
@@ -166,7 +167,8 @@ const styles = StyleSheet.create({
     buttonStyle: {
         borderWidth: 2,
         borderColor: 'pink',
-        width: 150,
+        width: '60%',
+        minWidth: 150,
         paddingHorizontal: 10,
         textAlign: 'center',
     },
@@ -187,14 +189,15 @@ const styles = StyleSheet.create({
     start: {
         borderColor: Colors.borderGrey,
         backgroundColor: 'seagreen',
-        width: '90%',
+        // width: '90%',
+        width: '60%',
     },
 
     input: {
         width: '20%',
         textAlign: 'center',
 
-        padding: 3,
+        padding: 1,
         fontSize: 12,
   
 

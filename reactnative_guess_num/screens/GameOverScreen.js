@@ -80,8 +80,8 @@ const GameOverScreen = props => {
                 style = {styles.chart}
                 data = {props.data}
                 width={screenWidth - 10}
-                height={250}
-                count = {20}
+                height={25}
+                count = {101}
                 withDots = {true}
                 // yAxisLabel=""
                 chartConfig={{
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         //width: '80%',
-        width: 300,
-        height: 300,
+        width: 100,
+        height: 100,
         borderRadius: 200,
         borderWidth: 4,
         overflow: 'hidden',
